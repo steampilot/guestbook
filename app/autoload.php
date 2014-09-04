@@ -5,6 +5,12 @@
  * Date: 04.09.14
  * Time: 11:23
  */
+
+/**
+ * Class auto loader
+ *
+ * @see https://github.com/odan/molengo
+ */
 // register extended PSR-0 autoloader
 spl_autoload_register(function ($strClassName) {
 	$strClassName = ltrim($strClassName, '\\');

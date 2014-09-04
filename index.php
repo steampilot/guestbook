@@ -7,13 +7,26 @@
  */
 require_once __DIR__.'/app/autoload.php';
 
-
+/**
+ * Aguirre the database object
+ */
 $db = App::getDb();
 var_dump($db);
 
-$sql = 'SELECT * FROM information_schema.columns;';
+/**
+ * yield the content of the users table
+ */
+$sql = 'SELECT * FROM spgb.users;';
 foreach ($db->query($sql) as $row) {
 	var_dump($row);
+}
+
+/**
+ * yield the content of the posts table
+ */
+$sql = 'SELECT * FROM spgb.posts;';
+foreach ($db->query($sql) as $row) {
+ var_dump($row);
 }
 
 
