@@ -9,9 +9,10 @@
 /**
  * Class auto loader
  *
+ * register extended PSR0 auto loader
  * @see https://github.com/odan/molengo
  */
-// register extended PSR-0 autoloader
+//
 spl_autoload_register(function ($strClassName) {
 	$strClassName = ltrim($strClassName, '\\');
 	$strFileName = '';
