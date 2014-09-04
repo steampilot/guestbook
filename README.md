@@ -1,6 +1,5 @@
 ##Steampilot Guest Book - A school project
-
-Bietet bietet die Möglichkeit ein Gästebuch auf der eigenen Webseite bereit zusstellen. Soll die Einträge permanent
+Bietet die Möglichkeit ein Gästebuch auf der eigenen Webseite bereit zusstellen. Soll die Einträge permanent
 in einer Mysql Datenbank halten. SPGB soll ansprechend gestaltet und mit den wichtigsten Sicherheitsfunktionen ausgestattet sein.
 ##Musskriterien
 ###Benutzerlogin
