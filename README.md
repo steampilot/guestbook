@@ -3,7 +3,7 @@ Bietet die Möglichkeit ein Gästebuch auf der eigenen Webseite bereit zusstelle
 in einer Mysql Datenbank halten. SPGB soll ansprechend gestaltet und mit den wichtigsten Sicherheitsfunktionen ausgestattet sein.
 ##Musskriterien
 ###Benutzerlogin
-Um ein Beitrag im Gästebuch zu posten muss ein Benutzer registriert und Angemeldet seint.
+Um ein Beitrag im Gästebuch zu posten muss ein Benutzer registriert und Angemeldet sein.
 ###Administration
 Der Administrator muss die Möglichkeit haben ein Beitrag von einem Benutzer zu bearbeiten und zu Löschen.
 Er muss auch in der Lage sein Benutzerinformationen zu Bearbeiten oder ein Benutzer zu löschen.
