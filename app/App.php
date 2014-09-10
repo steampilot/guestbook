@@ -14,26 +14,6 @@
  */
 class App {
 	/**
-	 * The name of the database Host
-	 * @var string
-	 */
-	public static $dbHostname = '127.0.0.1';
-	/**
-	 * The name of the schema
-	 * @var string
-	 */
-	public static $dbDatabase = 'spgb';
-	/**
-	 * The name of the database user
-	 * @var string
-	 */
-	public static $dbUsername = 'root';
-	/**
-	 * The database user password
-	 * @var string
-	 */
-	public static $dbPassword = '';
-	/**
 	 * Contains the database object
 	 * @var
 	 */
@@ -49,7 +29,8 @@ class App {
 			return static::$db;
 		} else {
 			static::$db = new \Steampilot\Util\DbConnector();
-			static::$db->connect(static::$dbHostname, static::$dbDatabase, static::$dbUsername, static::$dbPassword);
+			static::$db->connect(\Config::get('db.hostname'), \Config::get('db.database'),
+				\Config::get('db.username'), \Config::get('db.password'));
 			return static::$db;
 		}
 	}
