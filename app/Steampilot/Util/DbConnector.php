@@ -8,6 +8,8 @@
 
 namespace Steampilot\Util;
 
+use PDO;
+
 /**
  * Class DbConnector
  *
@@ -33,7 +35,20 @@ class DbConnector {
 	 * @return void
 	 */
 	public function connect($hostname = '127.0.0.1', $database = 'test', $username = 'root', $password = '') {
-		$this->dbConnection = new \PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+
+		// open the database connection
+		$this->dbConnection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+
+		// enable exceptions
+		$this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		// convert nulls to empty string
+		$this->dbConnection->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_TO_STRING);
+
+		// convert column names to lower case.
+		$this->dbConnection->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
+
+		// enable the use of utf8
 		$this->dbConnection->exec("set names utf8");
 	}
 
@@ -54,10 +69,9 @@ class DbConnector {
 	 */
 	public function query($sql) {
 
-		$statement = $this->dbConnection->prepare($sql);
-		$statement->execute();
+		$statement = $this->dbConnection->query($sql);
+		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-		$result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 		return $result;
 	}
@@ -66,7 +80,7 @@ class DbConnector {
 	 * Escapes malicous code bla bla
 	 *
 	 */
-	public function esc(){
+	public function esc() {
 		// escaping todoo
 	}
 }
