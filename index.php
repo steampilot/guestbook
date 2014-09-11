@@ -7,10 +7,11 @@
  */
 
 require_once __DIR__.'/app/autoload.php';
+require_once __DIR__.'/app/Config/Config.php';
 /**
  * Aguirre the database object
  */
-\Config::init();
+Config::init();
 $db = App::getDb();
 var_dump($db);
 ?>
@@ -24,22 +25,22 @@ var_dump($db);
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
 	body {
 	padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
 
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/book-16-256.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/book-16-128.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/book-16-64.png">
-                    <link rel="apple-touch-icon-precomposed" href="ico/book-16-48.png">
-                                   <link rel="shortcut icon" href="ico/book-16-32.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/book-16-256.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/book-16-128.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/book-16-64.png">
+                    <link rel="apple-touch-icon-precomposed" href="assets/ico/book-16-48.png">
+                                   <link rel="shortcut icon" href="assets/ico/book-16-32.png">
   </head>
 
   <body>
@@ -135,19 +136,19 @@ var_dump($db);
     <!-- Le javascript
 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap-transition.js"></script>
-    <script src="js/bootstrap-alert.js"></script>
-    <script src="js/bootstrap-modal.js"></script>
-    <script src="js/bootstrap-dropdown.js"></script>
-    <script src="js/bootstrap-scrollspy.js"></script>
-    <script src="js/bootstrap-tab.js"></script>
-    <script src="js/bootstrap-tooltip.js"></script>
-    <script src="js/bootstrap-popover.js"></script>
-    <script src="js/bootstrap-button.js"></script>
-    <script src="js/bootstrap-collapse.js"></script>
-    <script src="js/bootstrap-carousel.js"></script>
-    <script src="js/bootstrap-typeahead.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap-transition.js"></script>
+    <script src="assets/js/bootstrap-alert.js"></script>
+    <script src="assets/js/bootstrap-modal.js"></script>
+    <script src="assets/js/bootstrap-dropdown.js"></script>
+    <script src="assets/js/bootstrap-scrollspy.js"></script>
+    <script src="assets/js/bootstrap-tab.js"></script>
+    <script src="assets/js/bootstrap-tooltip.js"></script>
+    <script src="assets/js/bootstrap-popover.js"></script>
+    <script src="assets/js/bootstrap-button.js"></script>
+    <script src="assets/js/bootstrap-collapse.js"></script>
+    <script src="assets/js/bootstrap-carousel.js"></script>
+    <script src="assets/js/bootstrap-typeahead.js"></script>
 
   </body>
 </html>
