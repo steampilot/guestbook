@@ -6,7 +6,8 @@
  * Date: 04.09.14
  * Time: 11:31
  */
-
+use \Steampilot\Util\DbConnector;
+use \Config\Config;
 /**
  * Class App
  *
@@ -28,9 +29,9 @@ class App {
 		if (isset(static::$db)) {
 			return static::$db;
 		} else {
-			static::$db = new \Steampilot\Util\DbConnector();
-			static::$db->connect(\Config::get('db.hostname'), \Config::get('db.database'),
-				\Config::get('db.username'), \Config::get('db.password'));
+			static::$db = new DbConnector();
+			static::$db->connect(Config::get('db.hostname'), Config::get('db.database'),
+				Config::get('db.username'), Config::get('db.password'));
 			return static::$db;
 		}
 	}
