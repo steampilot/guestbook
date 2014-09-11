@@ -1,7 +1,5 @@
 .idea/
 atlassian-ide-plugin.xml
-/atlassian-ide-plugin.xml
 .idea
-/.htpasswd
-gonfig.php
-/app/Config.php
+.htpasswd
+Config.php
