@@ -5,10 +5,10 @@
  * Date: 10.09.14
  * Time: 11:10
  */
-
+namespace Config;
 /**
  * Class Config
- * 
+ *
  * This file is intended as Template. To install the guest book you must rename Config.php.local to Config.php
  */
 class Config {
@@ -41,7 +41,7 @@ class Config {
 
 	/**
 	 * Gets the specific config setting
-	 * 
+	 *
 	 * @param $key
 	 * @return mixed
 	 */
@@ -59,4 +59,4 @@ class Config {
 			static::setRemoteConfig();
 		}
 	}
-} 
+} }
