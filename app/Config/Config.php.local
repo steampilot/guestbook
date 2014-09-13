@@ -5,7 +5,18 @@
  * Date: 10.09.14
  * Time: 11:10
  */
+
 namespace Config;
+require_once __DIR__.'/../autoload.php';
+
+/**
+ * Aguirre the database object
+ */
+
+Config::init();
+
+
+
 /**
  * Class Config
  *
@@ -59,4 +70,8 @@ class Config {
 			static::setRemoteConfig();
 		}
 	}
-} }
+
+
+
+
+} 
