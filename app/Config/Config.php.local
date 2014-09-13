@@ -37,6 +37,7 @@ class Config {
 		static::$config['db.database'] = 'spgb';
 		static::$config['db.username'] = 'root';
 		static::$config['db.password'] = '';
+		static::$config['debug.mode'] = true;
 	}
 
 	/**
@@ -48,6 +49,7 @@ class Config {
 		static::$config['db.database'] = 'steampil_guestbook';
 		static::$config['db.username'] = 'steampil_spgb';
 		static::$config['db.password'] = 'NloTJdTEgw5V';
+		static::$config['debug.mode'] = false;
 	}
 
 	/**
@@ -70,4 +72,4 @@ class Config {
 			static::setRemoteConfig();
 		}
 	}
-} 
+}

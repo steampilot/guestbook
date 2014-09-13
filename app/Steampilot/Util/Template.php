@@ -18,7 +18,9 @@ class Template {
 		if (!empty($this->viewVars)) {
 			extract($this->viewVars, EXTR_REFS);
 		}
-		var_dump($this->viewVars);
+		if (\Config\Config::get('debug.mode')) {
+			var_dump($this->viewVars);
+		}
 		include $fileName;
 	}
 }
