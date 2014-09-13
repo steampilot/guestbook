@@ -7,6 +7,7 @@
  */
 
 namespace Steampilot\Util;
+use Steampilot\Util\Debug;
 
 
 class Template {
@@ -18,9 +19,7 @@ class Template {
 		if (!empty($this->viewVars)) {
 			extract($this->viewVars, EXTR_REFS);
 		}
-		if (\Config\Config::get('debug.mode')) {
-			var_dump($this->viewVars);
-		}
+		Debug::dump($this->viewVars, 'View variables Should be like this');
 		include $fileName;
 	}
 }
