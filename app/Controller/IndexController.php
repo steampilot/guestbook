@@ -7,16 +7,10 @@
  */
 
 namespace Controller;
-use Model\PostModel;
-use \Steampilot\Util\Template;
 
 class IndexController {
-	public function index(){
-		$postModel = new PostModel();
-		$posts = $postModel->getAll();
-		$file = __DIR__.'/../View/layout.html.php';
-		$tpl = new Template();
-		$tpl->set("posts", $posts);
-		$tpl->render($file);
+	public function index() {
+		$index = new PostController();
+		$index->index();
 	}
 } 

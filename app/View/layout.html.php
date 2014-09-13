@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
 	<meta name="author" content="Steampilot">
 	<link rel="icon" href="/assets/ico/favicon.ico">
 
-	<title>SPGB -  Steampilot Guest Book</title>
+	<title>SPGB - Steampilot Guest Book</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -24,10 +24,9 @@
 </head>
 
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<section class="container">
+		<header class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
@@ -35,7 +34,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#">SPGB - Steampilot Guest Book</a>
-		</div>
+		</header>
 		<div class="navbar-collapse collapse">
 			<form class="navbar-form navbar-right" role="form">
 				<div class="form-group">
@@ -46,47 +45,28 @@
 				</div>
 				<button type="submit" class="btn btn-success">Sign in</button>
 			</form>
-		</div><!--/.navbar-collapse -->
-	</div>
-</div>
+		</div>
+		<!--/.navbar-collapse -->
+	</section>
+</nav>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <header class="jumbotron">
 	<section class="container">
 		<h1>SPGB Steampilot Guest Book</h1>
+
 		<p>Tell me how awesome this guest book is by writing a post!</p>
+
 		<p><a class="btn btn-primary btn-lg" role="button">Create Post &raquo;</a></p>
 	</section>
 </header>
-
-<section class="container">
-	<article class="col-md-4">
-		<header>
-			<h2>Heading</h2>
-		</header>
-		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-		<aside>
-			<small>Created DATETIME</small>
-		</aside>
-	</article>
-	<div class="col-md-4">
-		<h2>Heading</h2>
-		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-		<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-	</div>
-	<div class="col-md-4">
-		<h2>Heading</h2>
-		<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-		<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-	</div>
-</section>
-<section class="container">
+<main class="container">
+	<?php include __DIR__.'/Post/index.html.php';?>
+</main>
+<footer class="container">
 	<hr>
-	<footer>
-		<p>&copy; Steampilot 2014</p>
-	</footer>
-</section>
+	<p>&copy; Steampilot 2014</p>
+</footer>
 
 
 <!-- Bootstrap core JavaScript
