@@ -5,17 +5,17 @@
  * Date: 10.09.14
  * Time: 11:10
  */
-
 namespace Config;
+
+/**
+ * Loads the psr auto loader
+ */
 require_once __DIR__.'/../autoload.php';
 
 /**
- * Aguirre the database object
+ * Initialize the configuration
  */
-
 Config::init();
-
-
 
 /**
  * Class Config
@@ -44,10 +44,10 @@ class Config {
 	 */
 	protected static function setRemoteConfig() {
 
-		static::$config['db.hostname'] = '';
-		static::$config['db.database'] = '';
-		static::$config['db.username'] = '';
-		static::$config['db.password'] = '';
+		static::$config['db.hostname'] = '127.0.0.1';
+		static::$config['db.database'] = 'steampil_guestbook';
+		static::$config['db.username'] = 'steampil_spgb';
+		static::$config['db.password'] = 'NloTJdTEgw5V';
 	}
 
 	/**
@@ -70,8 +70,4 @@ class Config {
 			static::setRemoteConfig();
 		}
 	}
-
-
-
-
 } 
