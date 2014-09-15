@@ -4,7 +4,9 @@
  * User: ShinKenDo
  * Date: 14.09.14
  * Time: 00:33
- */ ?>
+ */
+//include_once __DIR__ .'/../head.html.php';
+?>
 <main class="container">
 	<?php foreach ($posts as $post) {
 		$html = '
@@ -19,3 +21,6 @@
 		echo sprintf($html,$post["subject"],$post['message']);
 	}?>
 </main>
+<?php
+//include_once __DIR__ .'/../footer.html.php'
+?>

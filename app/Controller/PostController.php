@@ -14,11 +14,13 @@ class PostController {
 	public function index(){
 		$postModel = new PostModel();
 		$posts = $postModel->getAll();
-		$file['layout'] = __DIR__.'/../View/layout.html.php';
-		$tpl = new Template();
+        $viewFile = __DIR__.'/../View/Post/index.html.php';
+        $key = 'content';
+        $tpl = new Template();
+        $tpl->init();
 		$tpl->set("posts", $posts);
-		//$tpl->render($file['content']);
-		$tpl->render($file['layout']);
+        $tpl->setContent($key,$viewFile);
+		$tpl->render();
 	}
 	public function view() {
 

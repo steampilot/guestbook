@@ -60,8 +60,9 @@
 		<p><a class="btn btn-primary btn-lg" role="button">Create Post &raquo;</a></p>
 	</section>
 </header>
+
 <main class="container">
-	<?php include __DIR__.'/Post/index.html.php';?>
+
 </main>
 <footer class="container">
 	<hr>
