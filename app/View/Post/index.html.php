@@ -5,7 +5,6 @@
  * Date: 14.09.14
  * Time: 00:33
  */
-//include_once __DIR__ .'/../head.html.php';
 ?>
 <main class="container">
 	<?php foreach ($posts as $post) {
@@ -14,13 +13,10 @@
 				<header><h2>%s</h2></header>
 				<section>
 				<p>%s</p>
-				<p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+				<p><a class="btn btn-default" href="?table=post&action=view&id=%s">View details &raquo;</a></p>
 				</section>
 			</article>
 		';
-		echo sprintf($html,$post["subject"],$post['message']);
+		echo sprintf($html,$post["subject"],$post['message'],$post['id']);
 	}?>
 </main>
-<?php
-//include_once __DIR__ .'/../footer.html.php'
-?>

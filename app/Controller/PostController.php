@@ -11,19 +11,23 @@ use Model\PostModel;
 use Steampilot\Util\Template;
 
 class PostController {
-	public function index(){
-		$postModel = new PostModel();
-		$posts = $postModel->getAll();
-        $viewFile = __DIR__.'/../View/Post/index.html.php';
-        $key = 'content';
-        $tpl = new Template();
-        $tpl->init();
-		$tpl->set("posts", $posts);
-        $tpl->setContent($key,$viewFile);
-		$tpl->render();
+	protected $model;
+	protected $tpl;
+	public function __construct(){
+		$this->model = new PostModel();
+		$this->tpl = new Template();
 	}
-	public function view() {
-
+	public function index(){
+		$this->tpl->addViewFile('top',__VIEW__.'Post/top.html.php');
+		$this->tpl->addViewFile('content',__VIEW__.'Post/index.html.php');
+		$this->tpl->setViewVars("posts", $this->model->getAll());
+		$this->tpl->render();
+	}
+	public function view($id) {
+		$this->tpl->addViewFile('top', __VIEW__.'Post/top.html.php');
+		$this->tpl->addViewFile('content', __VIEW__.'Post/view.html.php');
+		$this->tpl->setViewVars("post", $this->model->getOne($id));
+		$this->tpl->render();
 	}
 	public function add() {
 
