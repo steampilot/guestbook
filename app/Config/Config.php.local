@@ -10,8 +10,10 @@ namespace Config;
 /**
  * Loads the psr auto loader
  */
-require_once __DIR__.'/../autoload.php';
-define ('__VIEW__', __DIR__.'/../View/');
+define ('__BASE_DIR__',__DIR__.'/../..');
+define ('__VIEW__', __BASE_DIR__.'/App/View/');
+define ('__assets__',__BASE_DIR__.'/assets/');
+require_once __BASE_DIR__.'/app/autoload.php';
 /**
  * Initialize the configuration
  */
@@ -37,7 +39,7 @@ class Config {
 		static::$config['db.database'] = 'spgb';
 		static::$config['db.username'] = 'root';
 		static::$config['db.password'] = '';
-		static::$config['debug.mode'] = true;
+		static::$config['debug.mode'] = false;
 	}
 
 	/**

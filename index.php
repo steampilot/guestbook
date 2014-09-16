@@ -8,10 +8,11 @@
 
 require_once __DIR__.'/app/Config/config.php';
 require_once __DIR__.'/app/Steampilot/Util/Debug.php';
-
-$index = new Controller\IndexController();
-?>
-
-<?php
-$index->index();
-?>
+use \Steampilot\Util\Route;
+use \Steampilot\Util\Debug;
+session_name('SPGB-Guestbook');
+@session_start();
+//$index = new \Controller\IndexController();
+$controller = new Route($_SERVER['REQUEST_URI']);
+//$index->index();
+//var_dump($controller);

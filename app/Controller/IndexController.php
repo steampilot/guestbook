@@ -9,10 +9,5 @@
 namespace Controller;
 
 class IndexController {
-	public function index() {
-		$index = new PostController();
-		$index->index();
-		$view = new PostController();
-		$view->view(1);
-	}
+
 } 
