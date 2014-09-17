@@ -7,36 +7,29 @@
  */
 
 namespace Steampilot\Util;
-use Steampilot\Util\Debug;
+use Config\Config;
 
-Debug::dump(__VIEW__);
 class Template {
 	protected $htmlHeader;
 	protected $htmlFooter;
-    protected $viewFile = array();
+
+	protected $viewElements = array();
 	protected $viewVars;
 
 	public function __construct(){
-		$this->htmlHeader = __VIEW__.'head.html.php';
-		$this->htmlFooter = __VIEW__.'footer.html.php';
 	}
 	public function setViewVars($key, $value){
 		$this->viewVars[$key] = $value;
+	}
+	public function addViewElement($path) {
+		$this->viewVars['VIEW_FILES'][] = $path;
 	}
 	public function render(){
 		if (!empty($this->viewVars)) {
 			extract($this->viewVars, EXTR_REFS);
 		}
-		Debug::dump($this->viewVars);
-		include $this->htmlHeader;
-		foreach ($this->viewFile as $fileName) {
-			if(!empty($fileName)) {
-				include $fileName;
-			}
-		}
-		include $this->htmlFooter;
+
+		include Config::get('layout');
+
 	}
-    public function addViewFile($view,$viewFile){
-        $this->viewFile[$view] = $viewFile;
-    }
 }

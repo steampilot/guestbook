@@ -18,14 +18,14 @@ class PostController {
 		$this->tpl = new Template();
 	}
 	public function index(){
-		$this->tpl->addViewFile('top',__VIEW__.'Post/top.html.php');
-		$this->tpl->addViewFile('content',__VIEW__.'Post/index.html.php');
+		$this->tpl->addViewElement(__VIEW__.'/Post/top.html.php');
+		$this->tpl->addViewElement(__VIEW__.'/Post/index.html.php');
 		$this->tpl->setViewVars("posts", $this->model->getAll());
 		$this->tpl->render();
 	}
 	public function view($id) {
-		$this->tpl->addViewFile('top', __VIEW__.'Post/top.html.php');
-		$this->tpl->addViewFile('content', __VIEW__.'Post/view.html.php');
+		$this->tpl->addViewElement(__VIEW__.'/Post/top.html.php');
+		$this->tpl->addViewElement(__VIEW__.'/Post/view.html.php');
 		$this->tpl->setViewVars("post", $this->model->getOne($id));
 		$this->tpl->render();
 	}

@@ -54,19 +54,9 @@ class Route {
 		return $this->params;
 	}
 	protected function callController(){
-		switch ($this->controller) {
-			case 'Post':
-				$post = new PostController();
-				switch ($this->action) {
-					case 'index':
-						$post->index();
-						break;
-					case 'view':
-						$post->view($this->params['id']);
-						break;
-				}
-				break;
-		}
+
+		$controller = new PostController();
+		$controller->index();
 		//$controller = new $this->controller();
 		//$controller->$this->action($this->param);
 	}

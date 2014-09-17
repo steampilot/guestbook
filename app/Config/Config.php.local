@@ -6,19 +6,6 @@
  * Time: 11:10
  */
 namespace Config;
-
-/**
- * Loads the psr auto loader
- */
-define ('__BASE_DIR__',__DIR__.'/../..');
-define ('__VIEW__', __BASE_DIR__.'/App/View/');
-define ('__assets__',__BASE_DIR__.'/assets/');
-require_once __BASE_DIR__.'/app/autoload.php';
-/**
- * Initialize the configuration
- */
-Config::init();
-
 /**
  * Class Config
  *
@@ -39,7 +26,8 @@ class Config {
 		static::$config['db.database'] = 'spgb';
 		static::$config['db.username'] = 'root';
 		static::$config['db.password'] = '';
-		static::$config['debug.mode'] = false;
+		static::$config['debug.mode'] = true;
+		static::$config['layout'] = __BASE_DIR__ .'/app/view/layout.html.php';
 	}
 
 	/**
@@ -67,6 +55,13 @@ class Config {
 	 * Initialize the config based on location
 	 */
 	public  static function init(){
+		// define constants
+		//var_dump($_SERVER);
+		define ('__BASE_URL__', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].pathinfo($_SERVER['SCRIPT_NAME'],
+				PATHINFO_DIRNAME).'/');
+		define ('__BASE_DIR__', realpath(__DIR__.'/../..'));
+		define ('__VIEW__', __BASE_DIR__.'/app/view');
+
 		if (($_SERVER['HTTP_HOST'] == '127.0.0.1') || ($_SERVER['HTTP_HOST'] == 'localhost')) {
 			static::setLocalConfig();
 		} else {
