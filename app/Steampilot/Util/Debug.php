@@ -11,6 +11,6 @@ use Config\Config;
 
 class Debug {
 	public static function dump($object = null, $message='') {
-		if (Config::get('debug.mode')) {var_dump($object);}
+		// dump the values like var dump and display the name of the object and its class
 	}
 }

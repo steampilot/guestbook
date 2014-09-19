@@ -14,21 +14,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Guest Book">
 	<meta name="author" content="Steampilot">
-	<base href="<?php echo __BASE_URL__; ?>">
+	<base href="<?php pu(__BASE_URL__); ?>">
 	<link rel="icon" href="assets/ico/favicon.ico">
 
-	<title>SPGB - Steampilot Guest Book</title>
+	<title><?php ph($app['title']); ?></title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href="" rel="stylesheet">
+	<link href="assets/css/jumbotron.css" rel="stylesheet">
 
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="assets/js/jquery-1.11.1.min.js"</script>
+	<script src="assets/js/jquery-1.11.1.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 
 </head>

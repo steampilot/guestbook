@@ -8,6 +8,8 @@
  */
 use \Steampilot\Util\DbConnector;
 use \Config\Config;
+use Steampilot\Util\Template;
+
 /**
  * Class App
  *
@@ -19,6 +21,11 @@ class App {
 	 * @var
 	 */
 	protected static $db;
+	/**
+	 * Contains the Template Object to render the views
+	 * @var
+	 */
+	protected static $tpl;
 
 	/**
 	 * Gets the database object
@@ -34,5 +41,10 @@ class App {
 				Config::get('db.username'), Config::get('db.password'));
 			return static::$db;
 		}
+	}
+	public static function getTpl() {
+			static::$tpl = new Template();
+			static::$tpl->setLayoutFile(Config::get('app.layout'));
+			return static::$tpl;
 	}
 } 

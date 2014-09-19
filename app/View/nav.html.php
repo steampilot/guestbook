@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">SPGB - Steampilot Guest Book</a>
+            <a class="navbar-brand" href="#"><?php ph($app['title']); ?></a>
         </header>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-right" role="form">

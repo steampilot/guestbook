@@ -38,9 +38,6 @@ class Route {
 				$this->params[explode('=',$pair)[0]] = true;
 			}
 		}
-		var_dump($this->controller);
-		var_dump($this->action);
-		var_dump($this->params);
 
 
 	}

@@ -17,6 +17,6 @@
 				</section>
 			</article>
 		';
-		echo sprintf($html,$post["subject"],$post['message'],$post['id']);
+		echo (sprintf($html,gh($post['subject']),ghbr($post['message']),gh($post['id'])));
 	}?>
 </main>
