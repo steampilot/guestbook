@@ -36,7 +36,7 @@
 <body>
 <?php
 // load nav
-include __VIEW__.'/nav.html.php';
+include __VIEW__ . '/ViewElement/nav.html.php';
 	foreach($VIEW_FILES as $viewFile) {
 		include $viewFile;
 	}
