@@ -8,15 +8,10 @@
 
 namespace Model;
 
-class PostModel {
-	/**
-	 * Holds the database Object
-	 * @var mixed
-	 */
-	protected $db;
+class PostModel extends Model{
 
 	public function __construct(){
-		$this->db = \APP::getDb();
+	parent::__construct();
 	}
 
 	/**
@@ -41,4 +36,12 @@ class PostModel {
 		$result = $this->db->query($sql);
 		return $result;
 	}
-} 
+
+	public function save($id) {
+		// TODO: Implement save() method.
+	}
+
+	public function delete($id) {
+		// TODO: Implement delete() method.
+	}
+}

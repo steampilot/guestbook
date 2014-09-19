@@ -9,11 +9,12 @@
 namespace Steampilot\Util;
 
 class Template {
-
+	protected $layoutFile;
 	protected $viewFiles = array();
 	protected $viewVars;
 
-	public function __construct(){
+	public function __construct($layoutFile){
+		$this->layoutFile = $layoutFile;
 	}
 	public function setViewVars($key, $value){
 		$this->viewVars[$key] = $value;
@@ -21,14 +22,11 @@ class Template {
 	public function addViewFile($path) {
 		$this->viewVars['VIEW_FILES'][] = $path;
 	}
-	public function setLayoutFile($path) {
-		$this->viewVars['LAYOUT'] = $path;
-	}
 	public function render(){
 		if (!empty($this->viewVars)) {
 			extract($this->viewVars, EXTR_REFS);
 		}
-		include $this->viewVars['LAYOUT'];
+		include $this->layoutFile;
 
 	}
 }

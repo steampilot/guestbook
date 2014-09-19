@@ -53,7 +53,7 @@ class Route {
 	protected function callController(){
 
 		$controller = new PostController();
-		$controller->index();
+		$controller->add_GET();
 		//$controller = new $this->controller();
 		//$controller->$this->action($this->param);
 	}

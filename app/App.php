@@ -43,8 +43,13 @@ class App {
 		}
 	}
 	public static function getTpl() {
+		if (isset(static::$tpl)){
+			return static::$tpl;
+		} else {
 			static::$tpl = new Template();
 			static::$tpl->setLayoutFile(Config::get('app.layout'));
+			static::$tpl->setViewVars('app', array('title'=> Config::get('app.name')));
 			return static::$tpl;
+		}
 	}
 } 
