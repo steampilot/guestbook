@@ -7,8 +7,7 @@
  */
 ?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<header class="jumbotron">
-<section class="container">
+<header class="jumbotron container">
 	<div class="col-lg-4">
 	<?php
 	$html = ('
@@ -25,5 +24,4 @@
 		<p>test<br> more test<br>even more test</p>
 	</div>
 	</div>
-</section>
 </header>

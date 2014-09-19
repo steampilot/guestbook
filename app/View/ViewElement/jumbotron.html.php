@@ -7,9 +7,9 @@
  */
 ?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<header class="jumbotron">
+<header class="jumbotron container">
 	<?php
-	$html = ('<section class="container">
+	$html = ('
 		<h1>%s</h1>
 		<p>%s</p>
 		<a href="%s" class="btn btn-primary btn-lg" role="button">%s &raquo;
