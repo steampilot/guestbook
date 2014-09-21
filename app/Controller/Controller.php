@@ -19,13 +19,10 @@ abstract class Controller extends Template{
 
 		parent::__construct($layoutFile);
 		$this->setViewVars('app', array('title'=> Config::get('app.name')));
-		var_dump($this);
 	}
-	public abstract function index_GET();
-	public abstract function view_GET($id);
-	public abstract function add_GET();
-	public abstract function add_POST();
-	public abstract function edit_GET($id);
-	public abstract function edit_POST($id);
-	public abstract function delete_GET($id);
+	public abstract function index();
+	public abstract function view($id);
+	public abstract function add();
+	public abstract function edit($id);
+	public abstract function delete($id);
 } 

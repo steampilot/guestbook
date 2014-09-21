@@ -7,8 +7,7 @@
  */
 ?>
 <main class="container">
-	<?php foreach ($posts as $post) {
-		$post['btn-url'] = __BASE_URL__.'/Post/view?id='.$post['id'];
+	<?php foreach ($users as $user) {
 		$html = '
 			<article class="col-md-4">
 				<header><h2>%s</h2></header>
@@ -18,6 +17,6 @@
 				</section>
 			</article>
 		';
-		echo (sprintf($html,gh($post['subject']),ghbr($post['message']),gu($post['btn-url'])));
+		echo (sprintf($html,gh($user['name']),ghbr($user['email']),gu($user['btn-url'])));
 	}?>
 </main>

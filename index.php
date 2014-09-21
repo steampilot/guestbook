@@ -11,13 +11,10 @@ require_once __DIR__.'/app/Steampilot/Util/htmlHelper.php';
 \Config\Config::init();
 
 use Steampilot\Util\Debug;
-use \Steampilot\Util\Route;
-
+use Steampilot\Util\Router;
 session_name('SPGB-Guestbook');
 
 @session_start();
 //$index = new \Controller\IndexController();
 
-new Route($_SERVER['REQUEST_URI']);
-//$index->index();
-Debug::dump($_SERVER);
+new Router($_SERVER['REQUEST_URI']);

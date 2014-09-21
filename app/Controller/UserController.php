@@ -7,45 +7,44 @@
  */
 
 namespace Controller;
-use Config\Config;
-use Model\PostModel;
-use Steampilot\Util\Template;
+use Model\UserModel;
 
-class PostController extends Controller {
+
+class UserController extends Controller {
 
 	public function __construct(){
-		$model = new PostModel();
+		$model = new UserModel();
 		parent::__construct($model);
 	}
 	public function index(){
-		$this->setViewVars("posts", $this->model->getAll());
+		$this->setViewVars("users", $this->model->getAll());
 		$this->setViewVars('jumbo', array(
-				'text' => "This is awesome!",
-				'btn-text' => 'Create New Post',
-				'btn-url' => __BASE_URL__.'Post/add'
+				'text' => "Hello Admin! Create a new User!",
+				'btn-text' => 'Create New User',
+				'btn-url' => __BASE_URL__.'User/add'
 			));
 		$this->addViewFile(__VIEW__.'/ViewElement/jumbotron.html.php');
-		$this->addViewFile(__VIEW__.'/Post/index.html.php');
+		$this->addViewFile(__VIEW__.'/User/index.html.php');
 
 		$this->render();
 	}
 	public function view($id) {
-		$this->setViewVars("post", $this->model->getOne($id));
-		$this->addViewFile(__VIEW__.'/Post/view.html.php');
+		$this->setViewVars('user', $this->model->getOne($id));
+		$this->addViewFile(__VIEW__.'/User/view.html.php');
 		$this->render();
 	}
 
 	public function add() {
 		if(!empty($_POST)){
 		}
-		$this->setViewVars('post', $this->model->getAll());
+		$this->setViewVars('users', $this->model->getAll());
 		$this->setViewVars('jumbo', array(
 				'title' => 'SPGB',
-				'text' => 'Write something cool!',
-				'submit-url' => __BASE_URL__.'Post/add'
+				'text' => 'Create new user!',
+				'submit-url' => __BASE_URL__.'User/add'
 			));
 		$this->addViewFile(__VIEW__.'/ViewElement/jumbo-form.html.php');
-		$this->addViewFile(__VIEW__.'/Post/add.html.php');
+		$this->addViewFile(__VIEW__.'/User/add.html.php');
 		$this->render();
 		// TODO: Implement add() method.
 	}
