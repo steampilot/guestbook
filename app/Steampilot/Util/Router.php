@@ -17,10 +17,10 @@ class Router {
 		$this->uri = $uri;
 		self::parseUri($this->uri);
 		self::callControllerAction($this->controller,$this->action,$this->params);
-		var_dump($_SERVER);
 	}
 	protected function parseUri($uri) {
-		$parsedUri = array_slice(explode('/',parse_url($uri)['path']),2);
+		$scriptNameCount = count(explode('/',$_SERVER['SCRIPT_NAME']))-1;
+		$parsedUri = array_slice(explode('/',parse_url($uri)['path']),$scriptNameCount);
 		$controller = '\Controller\\'.ucfirst(strtolower($parsedUri[0])).'Controller';
 		if($controller === '\Controller\Controller'){
 			$controller = '\Controller\IndexController';
