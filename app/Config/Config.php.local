@@ -59,7 +59,7 @@ class Config {
 		define ('__BASE_URL__', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].pathinfo($_SERVER['SCRIPT_NAME'],
 				PATHINFO_DIRNAME).'/');
 		define ('__BASE_DIR__', realpath(__DIR__.'/../..'));
-		define ('__VIEW__', __BASE_DIR__.'/app/view');
+		define ('__VIEW__', __BASE_DIR__.'/app/View');
 		static::$config['app.name'] = 'SPGB - Steampilot Guest Book';
 		static::$config['layout.file'] = __VIEW__.'/layout.html.php';
 		if (($_SERVER['HTTP_HOST'] == '127.0.0.1') || ($_SERVER['HTTP_HOST'] == 'localhost')) {

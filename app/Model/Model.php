@@ -12,7 +12,7 @@ namespace Model;
 abstract class Model{
 	protected $db;
 	public function __construct() {
-		$this->db = \APP::getDb();
+		$this->db = \App::getDb();
 	}
 	public abstract function getOne($id);
 	public abstract function getAll();

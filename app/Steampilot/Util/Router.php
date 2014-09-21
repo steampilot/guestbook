@@ -44,7 +44,6 @@ class Router {
 				}
 			}
 		}
-		var_dump($this);
 	}
 	protected function callControllerAction(){
 		$controller = new $this->controller();
