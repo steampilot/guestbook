@@ -28,8 +28,6 @@ class Config {
 		static::$config['db.username'] = 'root';
 		static::$config['db.password'] = '';
 		static::$config['debug.mode'] = true;
-		static::$config['app.name'] = 'SPGB - Steampilot Guest Book';
-		static::$config['app.layout'] = __VIEW__.'/layout.html.php';
 	}
 
 	/**
@@ -62,7 +60,8 @@ class Config {
 				PATHINFO_DIRNAME).'/');
 		define ('__BASE_DIR__', realpath(__DIR__.'/../..'));
 		define ('__VIEW__', __BASE_DIR__.'/app/view');
-
+		static::$config['app.name'] = 'SPGB - Steampilot Guest Book';
+		static::$config['layout.file'] = __VIEW__.'/layout.html.php';
 		if (($_SERVER['HTTP_HOST'] == '127.0.0.1') || ($_SERVER['HTTP_HOST'] == 'localhost')) {
 			static::setLocalConfig();
 		} else {
