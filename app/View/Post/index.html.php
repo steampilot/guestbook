@@ -8,7 +8,7 @@
 ?>
 <main class="container">
 	<?php foreach ($posts as $post) {
-		$post['btn-url'] = __BASE_URL__.'/Post/view?id='.$post['id'];
+		$post['btn-url'] = __BASE_URL__.'Post/view?id='.$post['id'];
 		$html = '
 			<article class="col-md-4">
 				<header><h2>%s</h2></header>

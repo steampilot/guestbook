@@ -8,6 +8,7 @@
 ?>
 <main class="container">
 	<?php foreach ($users as $user) {
+		$user['btn-url'] = __BASE_URL__.'User/view?id='.$user['id'];
 		$html = '
 			<article class="col-md-4">
 				<header><h2>%s</h2></header>

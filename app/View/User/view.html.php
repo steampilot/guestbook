@@ -8,10 +8,10 @@
 <main class="container">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<?php echo $post['id'].' '. $post['subject']; ?>
+			<?php echo $user['id'].' '. $user['name']; ?>
 		</div>
 		<div class="panel-body">
-			<?php echo $post['message']; ?>
+			<?php echo $user['email']; ?>
 		</div>
 		<div class="panel-footer">
 			this is the panel footer
