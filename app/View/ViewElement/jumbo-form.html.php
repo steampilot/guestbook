@@ -7,8 +7,8 @@
  */
 ?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<header class="jumbotron container">
-	<div class="col-lg-4">
+<header class="container-fluid">
+	<div class="jumbotron col-lg-4">
 	<?php
 	$html = ('
 		<h1>%s</h1>
@@ -18,10 +18,17 @@
 		</p>');
 	echo sprintf($html, gh($jumbo['title']), gh($jumbo['text']), gh($jumbo['submit-url']));
 	?>
-		</div>
-	<div class="col-lg-8">
-	<div style="background-color: #ffffff">
-		<p>test<br> more test<br>even more test</p>
 	</div>
+	<div class="col-lg-8">
+        <form class="modal-form panel" role="form" name="post" action="#" method="post">
+            <div class="panel-heading">Post</div>
+            <div class="input-group">
+                <span class="input-group-addon">Subject</span>
+                <input name="subject" type="text" class="form-control" placeholder="Headline">
+            </div>
+            <div class="input-group">
+                <textarea placeholder="Describe yourself with 4 words..." class="form-control col-lg-8" rows="8" cols="102" name="message"></textarea>
+            </div>
+        </form>
 	</div>
 </header>
