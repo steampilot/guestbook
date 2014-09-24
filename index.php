@@ -17,4 +17,5 @@ session_name('SPGB-Guestbook');
 @session_start();
 //$index = new \Controller\IndexController();
 
-new Router($_SERVER['REQUEST_URI']);
+$router = new Router();
+$router->run();

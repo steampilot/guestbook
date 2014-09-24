@@ -13,14 +13,14 @@ class Template {
 	protected $viewFiles = array();
 	protected $viewVars;
 
-	public function __construct($layoutFile){
-		$this->layoutFile = $layoutFile;
-	}
 	public function setViewVars($key, $value){
 		$this->viewVars[$key] = $value;
 	}
 	public function addViewFile($path) {
 		$this->viewVars['VIEW_FILES'][] = $path;
+	}
+	public function setLayout($layoutFile){
+		$this->layoutFile = $layoutFile;
 	}
 	public function render(){
 		if (!empty($this->viewVars)) {

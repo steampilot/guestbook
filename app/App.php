@@ -18,19 +18,19 @@ use Steampilot\Util\Template;
 class App {
 	/**
 	 * Contains the database object
-	 * @var
+	 * @var \Steampilot\util\DbConnector
 	 */
 	protected static $db;
 	/**
 	 * Contains the Template Object to render the views
-	 * @var
+	 * @var \Steampilot\Util\Template
 	 */
 	protected static $tpl;
 
 	/**
-	 * Gets the database object
+	 * Gets e singleton database object
 	 *
-	 * @return mixed The database object
+	 * @return \Steampilot\Util\DbConnector The Database object
 	 */
 	public static function getDb() {
 		if (isset(static::$db)) {
@@ -42,13 +42,17 @@ class App {
 			return static::$db;
 		}
 	}
+
+	/**
+	 * Gets a singleton template object
+	 *
+	 * @return \Steampilot\Util\Template The template object
+	 */
 	public static function getTpl() {
 		if (isset(static::$tpl)){
 			return static::$tpl;
 		} else {
 			static::$tpl = new Template();
-			static::$tpl->setLayoutFile(Config::get('app.layout'));
-			static::$tpl->setViewVars('app', array('title'=> Config::get('app.name')));
 			return static::$tpl;
 		}
 	}

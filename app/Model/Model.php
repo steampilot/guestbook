@@ -11,8 +11,21 @@ namespace Model;
 
 abstract class Model{
 	protected $db;
-	public function __construct() {
-		$this->db = \App::getDb();
+	public function __construct($db = null) {
+		if($db === null) {
+			$this->db = \App::getDb();
+		} else {
+			$this->db = $db;
+		}
+	}
+
+	/**
+	 * gets the gets the database object
+	 *
+	 * @return null| \Steampilot\Util\DbConnector The Database Object
+	 */
+	public function getDb(){
+		return $this->db;
 	}
 	public abstract function getOne($id);
 	public abstract function getAll();
