@@ -25,7 +25,7 @@ class IndexController extends Controller {
 			'btn-text' => 'List all posts',
 			'btn-url' => __BASE_URL__ . 'Post/index'
 		));
-		$tpl->addViewFile(__VIEW__ . '/ViewElement/jumbotron.html.php');
+		$tpl->addViewFile(__VIEW__ . '/ViewElement/jumbo.html.php');
 		$tpl->render();
 	}
 

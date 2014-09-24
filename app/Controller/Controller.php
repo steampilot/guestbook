@@ -7,6 +7,7 @@
  */
 
 namespace Controller;
+use \Model;
 use \Config\Config;
 
 
@@ -14,11 +15,16 @@ abstract class Controller {
 	/**
 	 * @var \Steampilot\Util\Template The template to be rendered
 	 */
-	public $tpl;
+	protected  $tpl;
 	/**
 	 * @var \Model\Model Holds the model data
 	 */
-	public $model;
+	protected $modelName;
+	/**
+	 * @var $model \Model\Model
+	 */
+	protected $model;
+	protected $view;
 	protected $method;
 	protected $GET = null;
 	protected $POST = null;
@@ -27,7 +33,15 @@ abstract class Controller {
 	 *
 	 * Child instances need to set the model for they specific controllers
 	 */
-	public function __construct($params) {
+	public function __construct($params = null,$modelName = null) {
+		if(empty($modelName)){
+			echo 'Model name is not set';
+			exit;
+		} else {
+			$this->modelName = $modelName;
+			$model = '\Model\\'.$modelName.'Model';
+			$this->model = new $model();
+		}
 		if(isset($params['GET'])){
 			$this->GET = $params['GET'];
 		}
@@ -38,6 +52,7 @@ abstract class Controller {
 		$this->method = $_SERVER['REQUEST_METHOD'];
 		$this->tpl->setLayout( __VIEW__.'/layout.html.php');
 		$this->tpl->setViewVars('app', array('title'=> Config::get('app.name')));
+
 	}
 
 	/**
@@ -48,7 +63,6 @@ abstract class Controller {
 	protected function getTpl() {
 		return $this->tpl;
 	}
-
 	/**
 	 * Gets the model
 	 *
@@ -56,6 +70,19 @@ abstract class Controller {
 	 */
 	protected function getModel() {
 		return $this->model;
+	}
+	protected function set($key,$value){
+		$this->tpl->setViewVars($key,$value);
+	}
+	protected function addElement($elementName,$params = array()){
+		var_dump($params);
+			$this->set($elementName,$params);
+		$this->tpl->addViewFile(__VIEW__.'/ViewElement/'.$elementName.'.html.php');
+	}
+	protected function render($view){
+		$this->tpl->addViewFile(__VIEW__.'/'.
+			$this->modelName.'/'.$view.'.html.php');
+		$this->tpl->render();
 	}
 	public abstract function index();
 

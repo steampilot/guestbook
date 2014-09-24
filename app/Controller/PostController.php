@@ -8,29 +8,25 @@
 
 namespace Controller;
 
+use Config\Config;
 use Model\PostModel;
 use Steampilot\Util\ErrorWidget;
 
 class PostController extends Controller {
 
 	public function __construct($params) {
-		parent::__construct($params);
-		$this->model = new PostModel();
+		parent::__construct($params,$modelName='Post');
 	}
 
 	public function index() {
-		$tpl = $this->getTpl();
-		$model = $this->getModel();
-		$tpl->setViewVars("posts", $model->getAll());
-		$tpl->setViewVars('jumbo', array(
+		$this->set("posts", $this->model->getAll());
+		$this->addElement('jumbo', array(
+			'title'=> Config::get('app.name'),
 			'text' => "This is awesome!",
 			'btn-text' => 'Create New Post',
 			'btn-url' => __BASE_URL__ . 'Post/add'
 		));
-		$tpl->addViewFile(__VIEW__ . '/ViewElement/jumbotron.html.php');
-		$tpl->addViewFile(__VIEW__ . '/Post/index.html.php');
-
-		$tpl->render();
+		$this->render('index');
 	}
 
 	public function view() {
@@ -48,14 +44,12 @@ class PostController extends Controller {
 				'btn-url' => __BASE_URL__ . 'Post/index',
 				'btn-text' => 'List all'
 			));
-			$tpl->addViewFile(__VIEW__ . '/ViewElement/jumbotron.html.php');
+			$tpl->addViewFile(__VIEW__ . '/ViewElement/jumbo.html.php');
 			$tpl->addViewFile(__VIEW__ . '/Post/view.html.php');
 		}
 		$tpl->render();
 	}
-
-	public function add() {
-
+	public function add(){
 
 	}
 

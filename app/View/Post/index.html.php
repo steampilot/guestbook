@@ -7,17 +7,15 @@
  */
 ?>
 <main class="container">
+
 	<?php foreach ($posts as $post) {
-		$post['btn-url'] = __BASE_URL__.'Post/view?id='.$post['id'];
-		$html = '
-			<article class="col-md-4">
-				<header><h2>%s</h2></header>
-				<section>
-				<p>%s</p>
-				<p><a class="btn btn-default" href="%s">View details &raquo;</a></p>
-				</section>
-			</article>
-		';
-		echo (sprintf($html,gh($post['subject']),ghbr($post['message']),gu($post['btn-url'])));
-	}?>
+	$btnUrl = __BASE_URL__.'Post/view?id='.$post['id'];   ?>
+	<article class="col-md-4">
+		<header><h2><? ph($post['subject']);?></h2></header>
+		<section>
+		<p><?php ph($post['message']);?></p>
+		<p><a class="btn btn-default" href="<?php pu($btnUrl);?>">View details &raquo;</a></p>
+		</section>
+	</article>
+	<?php }?>
 </main>
