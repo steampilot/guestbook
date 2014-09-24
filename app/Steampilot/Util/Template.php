@@ -10,7 +10,6 @@ namespace Steampilot\Util;
 
 class Template {
 	protected $layoutFile;
-	protected $viewFiles = array();
 	protected $viewVars;
 
 	public function setViewVars($key, $value){
@@ -18,6 +17,9 @@ class Template {
 	}
 	public function addViewFile($path) {
 		$this->viewVars['VIEW_FILES'][] = $path;
+	}
+	public function addViewElement($socket, $widget){
+		$this->viewVars['VIEW_ELEMENT'][$socket] = $widget;
 	}
 	public function setLayout($layoutFile){
 		$this->layoutFile = $layoutFile;

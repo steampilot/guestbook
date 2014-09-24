@@ -20,13 +20,20 @@ abstract class Controller {
 	 */
 	public $model;
 	protected $method;
-
+	protected $GET = null;
+	protected $POST = null;
 	/**
 	 * Constructor
 	 *
 	 * Child instances need to set the model for they specific controllers
 	 */
-	public function __construct() {
+	public function __construct($params) {
+		if(isset($params['GET'])){
+			$this->GET = $params['GET'];
+		}
+		if(isset($params['POST'])) {
+			$this->POST = $params['POST'];
+		}
 		$this->tpl = \App::getTpl();
 		$this->method = $_SERVER['REQUEST_METHOD'];
 		$this->tpl->setLayout( __VIEW__.'/layout.html.php');
@@ -50,42 +57,13 @@ abstract class Controller {
 	protected function getModel() {
 		return $this->model;
 	}
-	/**
-	 * Prepares and renders the view vor listing all records of a table
-	 *
-	 * @param null | array $params
-	 * @return void
-	 */
-	public abstract function index($params = null);
+	public abstract function index();
 
-	/**
-	 * Prepares and renders the view for listing a single record of a table
-	 *
-	 * @param array | array $params
-	 * @return Void
-	 */
-	public abstract function view($params = null);
+	public abstract function view();
 
-	/**
-	 * Prepares and renders the view for adding a new record for a table
-	 *
-	 * @param null | array $params
-	 * @return void
-	 */
-	public abstract function add($params = null);
+	public abstract function add();
 
-	/**
-	 * Prepares and renders the view for editing a given record of a table
-	 * @param array | array $params
-	 * @return void
-	 */
-	public abstract function edit($params = null);
+	public abstract function edit();
 
-	/**
-	 * Prepares and renders the view for deleting a given record of a table
-	 *
-	 * @param array | array $params
-	 * @return void
-	 */
-	public abstract function delete($params = null);
+	public abstract function delete();
 }

@@ -37,8 +37,10 @@
 <?php
 // load nav
 include __VIEW__ . '/ViewElement/nav.html.php';
-	foreach($VIEW_FILES as $viewFile) {
-		include $viewFile;
+	if(isset($VIEW_FILES)){
+		foreach($VIEW_FILES as $viewFile) {
+			include $viewFile;
+		}
 	}
 ?>
 <footer class="container">

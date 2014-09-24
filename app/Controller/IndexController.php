@@ -11,12 +11,12 @@ namespace Controller;
 use \Model\PostModel;
 
 class IndexController extends Controller {
-	public function __construct() {
-		parent::__construct();
+	public function __construct($param) {
+		parent::__construct($param);
 		$this->model = new PostModel();
 	}
 
-	public function index($params = null) {
+	public function index() {
 		$tpl = $this->getTpl();
 		$model = $this->getModel();
 		$tpl->setViewVars("posts", $model->getAll());
@@ -27,22 +27,21 @@ class IndexController extends Controller {
 		));
 		$tpl->addViewFile(__VIEW__ . '/ViewElement/jumbotron.html.php');
 		$tpl->render();
-		var_dump($_SERVER);
 	}
 
-	public function view($params = null) {
+	public function view() {
 		// TODO: Implement view() method.
 	}
 
-	public function add($params = null) {
+	public function add() {
 		// TODO: Implement add() method.
 	}
 
-	public function edit($params = null) {
+	public function edit() {
 		// TODO: Implement edit() method.
 	}
 
-	public function delete($params = null) {
+	public function delete() {
 		// TODO: Implement delete() method.
 	}
 }

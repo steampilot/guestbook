@@ -40,24 +40,29 @@ class Router {
 		} else {
 			$this->action = $parsedUri[1];
 		}
-		$parsedParams = explode('&', (parse_url($this->uri, PHP_URL_QUERY) ? '&' : '') . http_build_query($_GET));
-		foreach ($parsedParams as $pair) {
+		$params = explode('&', (parse_url($this->uri, PHP_URL_QUERY) ? '&' : '') . http_build_query($_GET));
+		foreach ($params as $pair) {
 			if (isset(explode('=', $pair)[1])) {
 				if (!empty(explode('=', $pair)[1])) {
-					$this->params[explode('=', $pair)[0]] = explode('=', $pair)[1];
+					$this->params['GET'][explode('=', $pair)[0]] = explode('=', $pair)[1];
 				} else {
-					$this->params[explode('=', $pair)[0]] = true;
+					$this->params['GET'][explode('=', $pair)[0]] = true;
 				}
 			}
+		}
+		if(isset($_POST) || !empty($_POST)){
+			$this->params['POST'] = $_POST;
+		} else {
+			$this->params['POST'] = null;
 		}
 	}
 
 	protected function callControllerAction() {
-		$controller = new $this->controller();
+		$controller = new $this->controller($this->params);
 		if (!method_exists($controller, $this->action) || (!is_callable(array($controller, $this->action)))) {
 			echo "Page not found";
 			exit;
 		}
-		$controller->{$this->action}($this->params);
+		$controller->{$this->action}();
 	}
 }

@@ -14,49 +14,27 @@ use Model\UserModel;
 class UserController extends Controller {
 
 	public function __construct() {
-		parent::__construct($model);
 		$this->model = new UserModel();
+		parent::__construct($model);
 	}
 
 	public function index() {
-		$this->tpl->setViewVars("users", $this->model->getAll());
-		$this->tpl->setViewVars('jumbo', array(
-			'text' => "Hello Admin! Create a new User!",
-			'btn-text' => 'Create New User',
-			'btn-url' => __BASE_URL__ . 'User/add'
-		));
-		$this->tpl->addViewFile(__VIEW__ . '/ViewElement/jumbotron.html.php');
-		$this->tpl->addViewFile(__VIEW__ . '/User/index.html.php');
-
-		$this->tpl->render();
+		// TODO: Implement index() method.
 	}
 
-	public function view($params = null) {
-		$this->tpl->setViewVars('user', $this->model->getOne($id));
-		$this->tpl->addViewFile(__VIEW__ . '/User/view.html.php');
-		$this->tpl->render();
+	public function view() {
+		// TODO: Implement view() method.
 	}
 
-	public function add($params = null) {
-		if (!empty($_POST)) {
-		}
-		$this->tpl->setViewVars('users', $this->model->getAll());
-		$this->tpl->setViewVars('jumbo', array(
-			'title' => 'SPGB',
-			'text' => 'Create new user!',
-			'submit-url' => __BASE_URL__ . 'User/add'
-		));
-		$this->tpl->addViewFile(__VIEW__ . '/ViewElement/jumbo-form.html.php');
-		$this->tpl->addViewFile(__VIEW__ . '/User/add.html.php');
-		$this->tpl->render();
+	public function add() {
 		// TODO: Implement add() method.
 	}
 
-	public function edit($params = null) {
+	public function edit() {
 		// TODO: Implement edit() method.
 	}
 
-	public function delete($params = null) {
+	public function delete() {
 		// TODO: Implement delete() method.
 	}
 }
