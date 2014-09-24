@@ -20,10 +20,11 @@ class PostModel extends Model{
 	 * @return mixed
 	 */
 	public function getOne($id) {
+		$db = $this->getDb();
 		$sql = "SELECT *
 				FROM posts
 				WHERE id = {$id};";
-		$result = $this->db->query($sql);
+		$result = $db->query($sql);
 		return $result[0];
 	}
 
@@ -32,8 +33,9 @@ class PostModel extends Model{
 	 * @return mixed
 	 */
 	public function getAll(){
+		$db = $this->getDb();
 		$sql = "SELECT * FROM posts;";
-		$result = $this->db->query($sql);
+		$result = $db->query($sql);
 		return $result;
 	}
 

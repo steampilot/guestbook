@@ -20,10 +20,11 @@ class UserModel extends Model{
 	 * @return mixed
 	 */
 	public function getOne($id) {
+		$db = $this->getDb();
 		$sql = "SELECT *
 				FROM users
 				WHERE id = {$id};";
-		$result = $this->db->query($sql);
+		$result = $db->query($sql);
 		return $result[0];
 	}
 
@@ -32,16 +33,19 @@ class UserModel extends Model{
 	 * @return mixed
 	 */
 	public function getAll(){
+		$db = $this->getDb();
 		$sql = "SELECT * FROM users;";
-		$result = $this->db->query($sql);
+		$result = $db->query($sql);
 		return $result;
 	}
 
 	public function save($id) {
+		$db = $this->getDb();
 		// TODO: Implement save() method.
 	}
 
 	public function delete($id) {
+		$db = $this->getDb();
 		// TODO: Implement delete() method.
 	}
 }
