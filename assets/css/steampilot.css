@@ -1,32 +1,34 @@
-.jumbotron-narrow {
-    padding: 30px;
+.jumbo-narrow {
+
+    padding: 10px;
+	margin-top: 30px;
     margin-bottom: 30px;
     color: inherit;
     background-color: #eee
 }
 
-.jumbotron-narrow h1{
+.jumbo-narrow h1{
     color: inherit
 }
 
-.jumbotron-narrow p {
+.jumbo-narrow p {
     margin-bottom: 30px;
     font-size: 21px;
-    font-weight: 200
+    follnt-weight: 200
 }
 
-.jumbotron-narrow > hr {
+.jumbo-narrow > hr {
     border-top-color: #d5d5d5
 }
 
-.container .jumbotron-narrow {
+.container .jumbo-narrow {
     border-radius: 6px
 }
 
-.jumbotron-narrow .container {
+.jumbo-narrow .container {
     max-width: 100%
 }
 #postView {
-	padding-top: 50px;
+	padding-top: 30px;
 
 }

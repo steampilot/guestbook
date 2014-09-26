@@ -45,6 +45,18 @@ class PostModel extends Model {
 		$result = $db->query($sql);
 		return $result;
 	}
+	public function beforeAdd(){
+		$db = $this->getDb();
+			$sql = "SELECT *
+					FROM users
+					WHERE id = 2;";
+		$result = $db->query($sql);
+		if(isset($result[0])){
+			return$result[0];
+		} else {
+			return null;
+		}
+	}
 
 	public function save($id) {
 		// TODO: Implement save() method.

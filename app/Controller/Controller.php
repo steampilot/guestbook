@@ -115,7 +115,11 @@ abstract class Controller {
 
 	}
 
-	public abstract function add();
+	public function add(){
+		if ($this->method === 'GET') {
+			$this->render('add');
+		}
+	}
 
 	public abstract function edit();
 

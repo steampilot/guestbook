@@ -32,7 +32,10 @@ class PostController extends Controller {
 	public function view() {
 		parent::view();
 	}
-	public function add(){}
+	public function add(){
+		$this->set("user", $this->model->beforeAdd());
+		parent::add();
+	}
 
 	public function edit() {
 		$tpl = $this->getTpl();

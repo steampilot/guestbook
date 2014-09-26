@@ -49,3 +49,6 @@ include __VIEW__ . '/ViewElement/nav.html.php';
 </footer>
 </body>
 </html>
+<?php
+ph(var_dump($_GET,$_POST,$_SERVER));
+?>

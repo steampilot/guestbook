@@ -3,17 +3,59 @@
  * Created by PhpStorm.
  * User: ShinKenDo
  * Date: 15.09.14
- * Time: 19:50
+ * Time: 19:11
  */
-?>
 
-<form class="col-lg-4" name="post" action="%s" method="post">
-    <div class="input-group input-group-lg">
-        <span class="input-group-addon">Subject</span>
-        <input name="subject" type="text" class="form-control" placeholder="Headline">
-    </div>
-    <div class="input-group">
-        <span class="input-group-addon"></span>
-        <textarea class="form-control" rows="3" name="message"></textarea>
-    </div>
-</form>
+
+$name = $user['name'];
+$email = $user['email'];
+$btnUrl = __BASE_URL__.'Post/index';
+$btnText = 'Back to the List';
+$submitUrl = __BASE_URL__.'Post/add';
+$session_user_id = 2;
+?>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<main class="container">
+	<header class="jumbo-narrow col-lg-4">
+		<h1>
+			<?php ph($name); ?>
+		</h1>
+		<p>
+			<?php ph($email); ?>
+		</p>
+		<p>
+			<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
+		</p>
+	</header>
+	<article id='postView' class="col-lg-8">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>Write a Post</h3>
+			</div>
+			<div class="panel-body">
+				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($btnUrl); ?>" method="post">
+					<div class="form-group">
+						<label for="subject">Subject</label>
+						<input type="text" class="form-control" name="subject" id="subject" placeholder="Whats it all about">
+					</div>
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea class="form-control" name="message" id="message " rows="3"></textarea>
+
+					</div>
+					<div class="form-inline">
+						<button type="submit" class="btn btn-default">Submit</button>
+						<div class="checkbox col-lg-offset-1">
+							<label>
+								<input type="checkbox" name="is_published">  Publish this Message
+							</label>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="panel-footer">
+				created Today
+			</div>
+		</div>
+	</article>
+</main>

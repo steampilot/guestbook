@@ -6,20 +6,18 @@
  * Time: 19:11
  */
 
-//$name = $user['name'];
-//$email = $user['email'];
-//$created = $user['created'];
 $subject = $post['subject'];
 $message = $post['message'];
 $created = $post['created'];
 $name = $post['name'];
 $email = $post['email'];
+
 $btnUrl = __BASE_URL__.'Post/index';
 $btnText = 'Back to the List';
 ?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <main class="container">
-<header class="jumbotron-narrow col-lg-4">
+<header class="jumbo-narrow col-lg-4">
 	<h1>
 		<?php ph($name); ?>
 	</h1>
