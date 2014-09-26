@@ -14,6 +14,8 @@ $message = $post['message'];
 $created = $post['created'];
 $name = $post['name'];
 $email = $post['email'];
+$btnUrl = __BASE_URL__.'Post/index';
+$btnText = 'Back to the List';
 ?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <main class="container">
@@ -24,9 +26,11 @@ $email = $post['email'];
 	<p>
 		<?php ph($email); ?>
 	</p>
+	<p>
+		<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
+	</p>
 </header>
-
-<article class="col-lg-8">
+<article id='postView' class="col-lg-8">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<?php ph($subject); ?>
