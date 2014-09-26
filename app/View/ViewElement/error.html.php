@@ -5,15 +5,22 @@
  * Date: 24.09.14
  * Time: 13:55
  */
+if(isset($error)){
+	$title = $error['title'];
+	$text = $error['text'];
+} else {
+	$title = 'ERROR';
+	$text = 'Brace yourselves the end is near!';
+}
 ?>
-<header class="jumbotron container">
-	<?php
-	$html = ('
-		<h1>%s</h1>
-		<p>%s</p>
-		<a href="%s" class="btn btn-primary btn-danger btn-lg" role="button">%s &raquo;
-		</a>
-		</p>');
-	echo sprintf($html, gh($error['title']), gh($error['text']), gu($error['btn-url']), gh($error['btn-text']));
-	?>
-</header>
+
+<div class="container">
+	<div class="panel panel-danger">
+		<div class="panel-body">
+			<div class="alert alert-danger" role="alert">
+				<h3><?php ph($title); ?></h3>
+				<p><?php ph($text); ?></p>
+			</div>
+		</div>
+	</div>
+</div>

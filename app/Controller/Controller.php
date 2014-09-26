@@ -12,34 +12,30 @@ use \Config\Config;
 
 
 abstract class Controller {
-	/**
-	 * @var \Steampilot\Util\Template The template to be rendered
-	 */
-	protected  $tpl;
-	/**
-	 * @var \Model\Model Holds the model data
-	 */
+	protected $tpl;
 	protected $modelName;
-	/**
-	 * @var $model \Model\Model
-	 */
+	protected $modelNamePlural;
 	protected $model;
 	protected $view;
 	protected $method;
+	protected $params;
 	protected $GET = null;
 	protected $POST = null;
+
 	/**
 	 * Constructor
-	 *
-	 * Child instances need to set the model for they specific controllers
+	 * @param Array $params The parameters given by the request
+	 * @param Array $modelNames A list of the model names in singular and plural
 	 */
-	public function __construct($params = null,$modelName = null) {
-		if(empty($modelName)){
+	public function __construct($params = null,$modelNames = null) {
+		$this->params = $params;
+		if(empty($modelNames)){
 			echo 'Model name is not set';
 			exit;
 		} else {
-			$this->modelName = $modelName;
-			$model = '\Model\\'.$modelName.'Model';
+			$this->modelNamePlural = $modelNames[1];
+			$this->modelName = $modelNames[0];
+			$model = '\Model\\'.$this->modelName.'Model';
 			$this->model = new $model();
 		}
 		if(isset($params['GET'])){
@@ -74,8 +70,7 @@ abstract class Controller {
 	protected function set($key,$value){
 		$this->tpl->setViewVars($key,$value);
 	}
-	protected function addElement($elementName,$params = array()){
-		var_dump($params);
+	protected function addElement($elementName,$params = null ){
 			$this->set($elementName,$params);
 		$this->tpl->addViewFile(__VIEW__.'/ViewElement/'.$elementName.'.html.php');
 	}
@@ -83,10 +78,42 @@ abstract class Controller {
 		$this->tpl->addViewFile(__VIEW__.'/'.
 			$this->modelName.'/'.$view.'.html.php');
 		$this->tpl->render();
+		exit;
 	}
-	public abstract function index();
+	protected function redirect($action){
+		$controller = '\Controller\\'.$this->modelName.'Controller';
+		$controller = new $controller($this->params);
+		if (!method_exists($controller, $action) || (!is_callable(array($controller, $action)))) {
+			echo "Page not found";
+			exit;
+		}
+		$controller->$action();
+	}
 
-	public abstract function view();
+	public function index(){
+		$this->set(strtolower($this->modelNamePlural), $this->model->getAll());
+		$this->render('index');
+	}
+
+	public function view() {
+		if ($this->GET === null ) {
+			$this->addElement('error', array(
+				'title' => 'NOT FOUND',
+				'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
+				$this->redirect('index');
+		} else {
+			$id = intval($this->GET['id']);
+			$data = $this->model->getOne($id);
+			if ($data === null){
+				$this->addElement('error');
+				$this->redirect('index');
+			} else {
+				$this->set(strtolower($this->modelName), $data);
+				$this->render('view');
+			}
+		}
+
+	}
 
 	public abstract function add();
 

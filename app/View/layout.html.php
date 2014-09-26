@@ -24,6 +24,7 @@
 
 	<!-- Custom styles for this template -->
 	<link href="assets/css/jumbotron.css" rel="stylesheet">
+	<link href="assets/css/steampilot.css" rel="stylesheet">
 
 	<!-- Bootstrap core JavaScript
 	================================================== -->
@@ -35,7 +36,6 @@
 
 <body>
 <?php
-// load nav
 include __VIEW__ . '/ViewElement/nav.html.php';
 	if(isset($VIEW_FILES)){
 		foreach($VIEW_FILES as $viewFile) {

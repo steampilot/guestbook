@@ -45,8 +45,6 @@ class Router {
 			if (isset(explode('=', $pair)[1])) {
 				if (!empty(explode('=', $pair)[1])) {
 					$this->params['GET'][explode('=', $pair)[0]] = explode('=', $pair)[1];
-				} else {
-					$this->params['GET'][explode('=', $pair)[0]] = true;
 				}
 			}
 		}

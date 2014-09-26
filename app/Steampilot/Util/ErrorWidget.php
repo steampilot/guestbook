@@ -30,16 +30,6 @@ class ErrorWidget {
 	}
 	public function render(){
 		$html = ('
-		<div class="container">
-			<div class="panel panel-danger">
-				<div class="panel-heading" >
-					<div class="panel-title"><h3>%s</h3></div>
-				</div>
-				<div class="panel-body">
-					<div class="alert alert-danger" role="alert"><p>%s</p></div>
-				</div>
-			</div>
-		</div>
 		');
 		$return = sprintf($html,$this->title,$this->text);
 		return $return;
