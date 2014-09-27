@@ -75,6 +75,10 @@ class DbConnector {
 
 		return $result;
 	}
+	public function exec($sql) {
+		$statement = $this->dbConnection->query($sql);
+		return $statement;
+	}
 
 	/**
 	 * Escapes malicous code bla bla

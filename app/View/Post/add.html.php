@@ -13,6 +13,7 @@ $btnUrl = __BASE_URL__.'Post/index';
 $btnText = 'Back to the List';
 $submitUrl = __BASE_URL__.'Post/add';
 $session_user_id = 2;
+$today = date('Y-m-d h:m:s');
 ?>
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <main class="container">
@@ -33,7 +34,10 @@ $session_user_id = 2;
 				<h3>Write a Post</h3>
 			</div>
 			<div class="panel-body">
-				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($btnUrl); ?>" method="post">
+				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($submitUrl); ?>" method="post">
+					<input type="hidden" id="created" name="created" value="<?php ph($today); ?>">
+					<input type="hidden" name="is_published" value="false">
+					<input type="hidden" id="user_id" name="user_id" value="1">
 					<div class="form-group">
 						<label for="subject">Subject</label>
 						<input type="text" class="form-control" name="subject" id="subject" placeholder="Whats it all about">
@@ -47,7 +51,7 @@ $session_user_id = 2;
 						<button type="submit" class="btn btn-default">Submit</button>
 						<div class="checkbox col-lg-offset-1">
 							<label>
-								<input type="checkbox" name="is_published">  Publish this Message
+								<input type="checkbox" VALUE="true"  id="is_published" name="is_published">  Publish this Message
 							</label>
 						</div>
 					</div>

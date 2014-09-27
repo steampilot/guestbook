@@ -39,7 +39,7 @@ class PostModel extends Model {
 	 */
 	public function getAll() {
 		$db = $this->getDb();
-		$sql = "SELECT *
+		$sql = "SELECT p.id, p.subject, p.message,p.is_published,p.created, u.name
 				FROM posts AS p
 				LEFT OUTER JOIN users AS u ON p.users_id = u.id;";
 		$result = $db->query($sql);
@@ -57,8 +57,29 @@ class PostModel extends Model {
 			return null;
 		}
 	}
+	public function create($data){
+		$user_id = $data["user_id"];
+		$subject = $data["subject"];
+		$message = $data["message"];
+		$is_published =$data["is_published"];
+		$created = $data["created"];
+		$db = $this->getDb();
+		$sql = 'INSERT INTO posts (users_id, subject, message, is_published, created)
+				VALUES (2, "'.
+			$subject.'", "'.
+			$message.'", 1, "'.
+			$created.'");';
+		$result = $db->exec($sql);
+		return $result;
+	}
 
-	public function save($id) {
+	public function save($data) {
+		$db = $this->getDb();
+		$db->lastInsertId();
+		if (isset($data['id'])){
+			$id = $data['id'];
+		} else {
+		}
 		// TODO: Implement save() method.
 	}
 

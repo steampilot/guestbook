@@ -15,6 +15,9 @@ abstract class Controller {
 	protected $tpl;
 	protected $modelName;
 	protected $modelNamePlural;
+	/**
+	 * @var \Model\Model The model object
+	 */
 	protected $model;
 	protected $view;
 	protected $method;
@@ -80,9 +83,12 @@ abstract class Controller {
 		$this->tpl->render();
 		exit;
 	}
-	protected function redirect($action){
+	protected function redirect($action, $params = null){
 		$controller = '\Controller\\'.$this->modelName.'Controller';
-		$controller = new $controller($this->params);
+		if($params === null) {
+			$params = $this->params;
+		}
+		$controller = new $controller($params);
 		if (!method_exists($controller, $action) || (!is_callable(array($controller, $action)))) {
 			echo "Page not found";
 			exit;
@@ -118,6 +124,10 @@ abstract class Controller {
 	public function add(){
 		if ($this->method === 'GET') {
 			$this->render('add');
+		} else if ($this->method === 'POST'){
+			$query = $this->model->create($_POST);
+			$this->set('query',$query );
+			$this->redirect('index');
 		}
 	}
 
