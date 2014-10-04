@@ -24,6 +24,11 @@ class DbConnector {
 	 * @var null|\PDO
 	 */
 	protected $dbConnection = null;
+	/**
+	 * Contains the number of rows that are affected after a successful sql execution
+	 * @var int
+	 */
+	protected $affectedRows = 0;
 
 	/**
 	 * Opens the connection to the database via \PDO
@@ -70,21 +75,18 @@ class DbConnector {
 	public function query($sql) {
 
 		$statement = $this->dbConnection->query($sql);
+		if(!$statement) {
+			throw new \Exception('Invalid database query');
+		}
 		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-
 		return $result;
 	}
 	public function exec($sql) {
-		$statement = $this->dbConnection->query($sql);
-		return $statement;
-	}
+		if ($sql === '' || $sql === null) {
+			return false;
+		}
 
-	/**
-	 * Escapes malicous code bla bla
-	 *
-	 */
-	public function esc() {
-		// escaping todoo
+		$affectedRows = $this->dbConnection->exec($sql);
+		return $affectedRows;
 	}
 }

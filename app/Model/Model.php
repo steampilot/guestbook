@@ -30,6 +30,6 @@ abstract class Model{
 	public abstract function getOne($id);
 	public abstract function getAll();
 	public abstract function create($data);
-	public abstract function save($data);
+	public abstract function update($data);
 	public abstract function delete($id);
 }

@@ -21,10 +21,24 @@ class PostModel extends Model {
 	 */
 	public function getOne($id) {
 		$db = $this->getDb();
-		$sql = "SELECT *
-				FROM posts AS p
-				LEFT OUTER JOIN users AS u ON p.users_id = u.id
-				WHERE p.id = {$id};";
+		$sql = 'SELECT
+					p.id,
+					p.subject,
+					p.message,
+					p.created,
+					p.modified,
+					p.published,
+					p.author_id,
+					u.name 	AS author_name,
+					u.email AS author_email
+				FROM post AS p
+				LEFT JOIN user AS u ON p.author_id = u.id
+				WHERE p.id = {id};';
+		$fields = array(
+			'id'=> $id
+		)
+		;
+		$sql = prepare($sql, $fields);
 		$result = $db->query($sql);
 		if (isset($result[0])) {
 			return $result[0];
@@ -39,17 +53,38 @@ class PostModel extends Model {
 	 */
 	public function getAll() {
 		$db = $this->getDb();
-		$sql = "SELECT p.id, p.subject, p.message,p.is_published,p.created, u.name
-				FROM posts AS p
-				LEFT OUTER JOIN users AS u ON p.users_id = u.id;";
+		$sql =
+		$sql = 'SELECT
+					p.id,
+					p.subject,
+					p.message,
+					p.published,
+					p.created,
+					p.modified,
+					p.author_id,
+					u.name as author_name,
+					u.email as author_email
+				FROM post AS p
+				LEFT JOIN user AS u ON p.author_id = u.id;';
 		$result = $db->query($sql);
 		return $result;
 	}
-	public function beforeAdd(){
+
+	/**
+	 * Gets the user alias author of a post
+	 * @param int $id The author id
+	 * @return null|array the author
+	 */
+	public function getAuthor($id){
 		$db = $this->getDb();
-			$sql = "SELECT *
-					FROM users
-					WHERE id = 2;";
+		$fields = array(
+			'id' => $id
+		);
+		$sql = 'SELECT id, name, email
+				FROM user
+				WHERE id = {id};';
+		$sql = prepare($sql, $fields, false);
+		var_dump($sql);
 		$result = $db->query($sql);
 		if(isset($result[0])){
 			return$result[0];
@@ -57,33 +92,32 @@ class PostModel extends Model {
 			return null;
 		}
 	}
-	public function create($data){
-		$user_id = $data["user_id"];
-		$subject = $data["subject"];
-		$message = $data["message"];
-		$is_published =$data["is_published"];
-		$created = $data["created"];
+	public function create($fields){
 		$db = $this->getDb();
-		$sql = 'INSERT INTO posts (users_id, subject, message, is_published, created)
-				VALUES (2, "'.
-			$subject.'", "'.
-			$message.'", 1, "'.
-			$created.'");';
+		$sql = 'INSERT INTO post (author_id, subject, message, published, created)
+				VALUES ({author_id}, {subject}, {message}, {published}, {created});';
+		$sql = prepare($sql, $fields, true);
+		var_dump($sql);
 		$result = $db->exec($sql);
 		return $result;
 	}
 
-	public function save($data) {
+	public function update($fields) {
 		$db = $this->getDb();
-		$db->lastInsertId();
-		if (isset($data['id'])){
-			$id = $data['id'];
-		} else {
-		}
-		// TODO: Implement save() method.
+				$sql = 'UPDATE post SET
+				subject = {subject},
+				message = {message},
+				published = {published},
+				modified = {modified}
+				WHERE id = {id};';
+		$sql = prepare($sql,$fields);
+		var_dump($sql);
+
+		$result = $db->exec($sql);
+		return $result;
 	}
 
 	public function delete($id) {
-		// TODO: Implement delete() method.
+		//
 	}
 }

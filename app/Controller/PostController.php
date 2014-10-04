@@ -12,7 +12,16 @@ use Config\Config;
 use Model\PostModel;
 use Steampilot\Util\ErrorWidget;
 
+/**
+ * Class PostController
+ * @package Controller
+ */
 class PostController extends Controller {
+
+	/**
+	 * @var \Model\PostModel
+	 */
+	protected $model;
 
 	public function __construct($params) {
 		$modelName = array('Post','Posts');
@@ -32,32 +41,20 @@ class PostController extends Controller {
 	public function view() {
 		parent::view();
 	}
+
+	/**
+	 * @uses \Model\PostModel::getAuthor() to retrieve data about the creator of the post.
+	 */
 	public function add(){
-		$this->set("user", $this->model->beforeAdd());
+		$this->set("author", $this->model->getAuthor($author_id = 2));
 		parent::add();
 	}
 
 	public function edit() {
-		$tpl = $this->getTpl();
-		$model = $this->getModel();
-		// Post
-		if(($this->method === 'POST') && ((!isset($this->POST) || empty($this->POST)))){
-		}
-		// GET
-		if(($this->method === 'GET') && ((!isset($this->GET)|| empty($this->GET)))){
-			$tpl->addViewElement('ERROR', new ErrorWidget('NOT FOUND','Couldnt find'));
-			$tpl->render();
-		}
-		// anny other reason
-		else {
-			$tpl->addViewElement(new ErrorWidget());
-			$tpl->render();
-		}
+		parent::edit();
 	}
 
 	public function delete() {
-		$tpl = $this->getTpl();
-		$model = $this->getModel();
-		// TODO: Implement delete() method.
+		parent::delete();
 	}
 }

@@ -50,10 +50,14 @@ abstract class Controller {
 		$this->tpl = \App::getTpl();
 		$this->method = $_SERVER['REQUEST_METHOD'];
 		$this->tpl->setLayout( __VIEW__.'/layout.html.php');
-		$this->tpl->setViewVars('app', array('title'=> Config::get('app.name')));
-
+		$this->tpl->setViewVars(
+			'app', array(
+				'title'=> Config::get('app.name'),
+				'version' => "TODO put version into config",
+				'today' => date('Y-m-d h:m:s')
+			)
+		);
 	}
-
 	/**
 	 * Gets the template object
 	 *
@@ -120,18 +124,63 @@ abstract class Controller {
 		}
 
 	}
-
 	public function add(){
 		if ($this->method === 'GET') {
 			$this->render('add');
 		} else if ($this->method === 'POST'){
-			$query = $this->model->create($_POST);
-			$this->set('query',$query );
+			$this->model->create($_POST);
 			$this->redirect('index');
 		}
 	}
+	public function before_edit(){
 
-	public abstract function edit();
+	}
+	public function edit() {
+		if ($this->method === 'GET'){
 
-	public abstract function delete();
+			if ($this->GET === null ) {
+				$this->addElement('error', array(
+					'title' => 'NOT FOUND',
+					'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
+				$this->redirect('index');
+			} else {
+				$id = intval($this->GET['id']);
+				$data = $this->model->getOne($id);
+				if ($data === null){
+					$this->addElement('error');
+					$this->redirect('index');
+				} else {
+					$this->set(strtolower($this->modelName), $data);
+					$this->render('edit');
+				}
+			}
+		}
+		if ($this->method === 'POST'){
+			$this->model->update($_POST);
+			$this->redirect('view');
+		}
+	}
+
+	protected function validateGET(){
+
+	}
+	public function delete(){
+		if ($this->GET === null ) {
+			$this->addElement('error', array(
+				'title' => 'NOT FOUND',
+				'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
+			$this->redirect('index');
+		} else {
+			$id = intval($this->GET['id']);
+			$data = $this->model->getOne($id);
+			if ($data === null){
+				$this->addElement('error');
+				$this->redirect('index');
+			} else {
+				$this->model->delete($id);
+				$this->addElement('success');
+				$this->redirect('index');
+			}
+		}
+	}
 }

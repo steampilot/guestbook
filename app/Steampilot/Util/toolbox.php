@@ -147,7 +147,46 @@ function av(&$arr, $arr_keys, $default = '') {
 	}
 	return $return;
 }
+function interpolate($message, array $context = array()) {
+	$replace = array();
+	foreach($context as $key => $value){
+		$replace['{'.$key.'}'] = $value;
+	}
+	return strtr($message,$replace);
+}
+function quote($message, $delimiter = '\'') {
+	$quoted = $delimiter . $message . $delimiter;
+	return $quoted;
+}
+function prepare($sql, array $fields = array(), $escaping = true){
+	$replace = array();
+	foreach($fields as $key => $value) {
+		if ($escaping) {
 
+			$replace['{'.$key.'}'] = quote($value);
+		} else {
+			$replace['{'.$key.'}'] = $value;
+		}
+	}
+	return strtr($sql,$replace);
+}
+
+/**
+ * Embraces a string with brackets
+ * @param string $string The String to be embraced;
+ * @value 'round', 'square', 'curly', 'angle'
+ * @param string $brackets The type of brackets possible values are: round, square, curly, angle
+ * @return string
+ */
+function bracket($string = '', $brackets = "round"){
+	$bracketList = array(
+		'round'  => array ('(',')'),
+		'square' => array ('[',']'),
+		'curly'  => array ('{','}'),
+		'angle'  => array ('<','>')
+	);
+	return $bracketList[$brackets][0] . $string . $bracketList[$brackets][1];
+}
 
 
 

@@ -12,13 +12,13 @@
 	$btnUrl = __BASE_URL__.'Post/view?id='.$post['id'];
 	$subject = $post['subject'];
 	$message = $post['message'];
-		$name = $post['name'];
+	$author_name = $post['author_name'];
 	?>
 	<article class="col-md-4 ">
 		<header>
 			<h2><?php ph($subject);?></h2>
 			<small>
-				<?php ph($name); ?>
+				<?php ph($author_name); ?>
 			</small>
 		</header>
 		<hr>

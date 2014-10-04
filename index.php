@@ -6,7 +6,7 @@
  * Time: 10:42
  */
 require_once __DIR__.'/app/autoload.php';
-require_once __DIR__.'/app/Steampilot/Util/htmlHelper.php';
+require_once __DIR__ . '/app/Steampilot/Util/toolbox.php';
 
 \Config\Config::init();
 
@@ -15,7 +15,6 @@ use Steampilot\Util\Router;
 session_name('SPGB-Guestbook');
 
 @session_start();
-//$index = new \Controller\IndexController();
 
 $router = new Router();
 $router->run();

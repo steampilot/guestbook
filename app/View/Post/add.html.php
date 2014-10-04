@@ -7,22 +7,22 @@
  */
 
 
-$name = $user['name'];
-$email = $user['email'];
+$session_user_id = 2;
+$today = $app['today'];
+$authorId = $author['id'];
+$authorName = $author['name'];
+$authorEmail = $author['email'];
 $btnUrl = __BASE_URL__.'Post/index';
 $btnText = 'Back to the List';
 $submitUrl = __BASE_URL__.'Post/add';
-$session_user_id = 2;
-$today = date('Y-m-d h:m:s');
 ?>
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <main class="container">
 	<header class="jumbo-narrow col-lg-4">
 		<h1>
-			<?php ph($name); ?>
+			<?php ph($authorName); ?>
 		</h1>
 		<p>
-			<?php ph($email); ?>
+			<?php ph($authorEmail); ?>
 		</p>
 		<p>
 			<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
@@ -36,8 +36,8 @@ $today = date('Y-m-d h:m:s');
 			<div class="panel-body">
 				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($submitUrl); ?>" method="post">
 					<input type="hidden" id="created" name="created" value="<?php ph($today); ?>">
-					<input type="hidden" name="is_published" value="false">
-					<input type="hidden" id="user_id" name="user_id" value="1">
+					<input type="hidden" name="published" value="false">
+					<input type="hidden" id="author_id" name="author_id" value="<?php ph($authorId); ?>">
 					<div class="form-group">
 						<label for="subject">Subject</label>
 						<input type="text" class="form-control" name="subject" id="subject" placeholder="Whats it all about">
@@ -51,7 +51,7 @@ $today = date('Y-m-d h:m:s');
 						<button type="submit" class="btn btn-default">Submit</button>
 						<div class="checkbox col-lg-offset-1">
 							<label>
-								<input type="checkbox" VALUE="true"  id="is_published" name="is_published">  Publish this Message
+								<input type="checkbox" VALUE="true"  id="is_published" name="published">  Publish this Message
 							</label>
 						</div>
 					</div>
