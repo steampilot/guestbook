@@ -97,9 +97,7 @@ class PostModel extends Model {
 		$sql = 'INSERT INTO post (author_id, subject, message, published, created)
 				VALUES ({author_id}, {subject}, {message}, {published}, {created});';
 		$sql = prepare($sql, $fields, true);
-		var_dump($sql);
-		$result = $db->exec($sql);
-		return $result;
+		return $db->exec($sql);
 	}
 
 	public function update($fields) {
@@ -111,13 +109,19 @@ class PostModel extends Model {
 				modified = {modified}
 				WHERE id = {id};';
 		$sql = prepare($sql,$fields);
-		var_dump($sql);
-
-		$result = $db->exec($sql);
-		return $result;
+		return $db->exec($sql);
 	}
 
 	public function delete($id) {
 		//
+		$db = $this->getDb();
+		$sql = 'DELETE FROM post WHERE id = {id};';
+		$fields = array(
+			'id' => $id
+		);
+		$sql = prepare($sql,$fields);
+		return $db->exec($sql);
+	}
+	public function validate($data){
 	}
 }
