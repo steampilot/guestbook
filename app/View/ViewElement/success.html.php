@@ -5,9 +5,9 @@
  * Date: 24.09.14
  * Time: 13:55
  */
-if(isset($error)){
-	$title = $error['title'];
-	$text = $error['text'];
+if(isset($success)){
+	$title = $success['title'];
+	$text = $success['text'];
 } else {
 	$title = 'SUCCESS';
 	$text = 'No idea what you just did. Could be you wiped the internet. Anyhow, it worked!';

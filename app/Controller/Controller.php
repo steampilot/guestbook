@@ -57,6 +57,11 @@ abstract class Controller {
 				'today' => date('Y-m-d h:m:s')
 			)
 		);
+		if(isset($_SESSION['alert'])){
+			var_dump($_SESSION);
+				$this->addElement($_SESSION['alert']['type'],$_SESSION['alert']['params']);
+			}
+			unset($_SESSION['alert']);
 	}
 	/**
 	 * Gets the template object
@@ -81,33 +86,33 @@ abstract class Controller {
 			$this->set($elementName,$params);
 		$this->tpl->addViewFile(__VIEW__.'/ViewElement/'.$elementName.'.html.php');
 	}
+	protected function setAlert($type = 'error', array $params = null){
+		$_SESSION['alert'] = array(
+			'type' => $type,
+			'params' => $params,
+		);
+	}
 	protected function render($view){
 		$this->tpl->addViewFile(__VIEW__.'/'.
 			$this->modelName.'/'.$view.'.html.php');
 		$this->tpl->render();
 		exit;
 	}
-	protected function redirect($action, $params = null){
-		$controller = '\Controller\\'.$this->modelName.'Controller';
-		if($params === null) {
-			$params = $this->params;
-		}
-		$controller = new $controller($params);
-		if (!method_exists($controller, $action) || (!is_callable(array($controller, $action)))) {
-			echo "Page not found";
-			exit;
-		}
-		$controller->$action();
+	protected function redirect($controller = '', $action = '', $params = null) {
+
+		header('Location: '.__BASE_URL__.'Post/index');
+		die();
 	}
 
 	public function index(){
+
 		$this->set(strtolower($this->modelNamePlural), $this->model->getAll());
 		$this->render('index');
 	}
 
 	public function view() {
 		if ($this->GET === null ) {
-			$this->addElement('error', array(
+			$this->setAlert('error', array(
 				'title' => 'NOT FOUND',
 				'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
 				$this->redirect('index');
@@ -115,8 +120,11 @@ abstract class Controller {
 			$id = intval($this->GET['id']);
 			$data = $this->model->getOne($id);
 			if ($data === null){
-				$this->addElement('error');
-				$this->redirect('index');
+				$this->setAlert('error', array(
+					'title' => 'NOT FOUND',
+					'text' => 'Post Nr: '. $id . ' could not be found.'
+				));
+				$this->redirect();
 			} else {
 				$this->set(strtolower($this->modelName), $data);
 				$this->render('view');
@@ -128,18 +136,25 @@ abstract class Controller {
 		if ($this->method === 'GET') {
 			$this->render('add');
 		} else if ($this->method === 'POST'){
-			$this->model->create($_POST);
+			$affected = $this->model->create($_POST);
+			if ($affected >= 1) {
+				$this->setAlert('success', array(
+					'title' => 'New Post created',
+					'text' => 'Post Nr '. $id. ' has been created'
+				));
+			} else {
+				$this->set('error', array(
+					'title' => 'ERROR',
+					'text' => 'Post create a new post'
+				));
+			}
 			$this->redirect('index');
 		}
 	}
-	public function before_edit(){
-
-	}
 	public function edit() {
 		if ($this->method === 'GET'){
-
 			if ($this->GET === null ) {
-				$this->addElement('error', array(
+				$this->setAlert('error', array(
 					'title' => 'NOT FOUND',
 					'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
 				$this->redirect('index');
@@ -147,8 +162,11 @@ abstract class Controller {
 				$id = intval($this->GET['id']);
 				$data = $this->model->getOne($id);
 				if ($data === null){
-					$this->addElement('error');
-					$this->redirect('index');
+					$this->setAlert('error', array(
+						'title' => 'NOT FOUND',
+						'text' => 'Post Nr: '. $id . ' could not be found.'
+					));
+					$this->redirect();
 				} else {
 					$this->set(strtolower($this->modelName), $data);
 					$this->render('edit');
@@ -156,17 +174,21 @@ abstract class Controller {
 			}
 		}
 		if ($this->method === 'POST'){
-			$this->model->update($_POST);
-			$this->redirect('view');
+			$affected = $this->model->update($_POST);
+			if ($affected >= 1) {
+				$this->setAlert('success', array(
+					'title' => 'SUCCESS',
+					'text' => 'Message id: '. $_POST['id'].' has been modified'
+				));
+			} else {
+				$this->setAlert('error');
+			}
+			$this->redirect();
 		}
-	}
-
-	protected function validateGET(){
-
 	}
 	public function delete(){
 		if ($this->GET === null ) {
-			$this->addElement('error', array(
+			$this->setAlert('error', array(
 				'title' => 'NOT FOUND',
 				'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
 			$this->redirect('index');
@@ -174,11 +196,24 @@ abstract class Controller {
 			$id = intval($this->GET['id']);
 			$data = $this->model->getOne($id);
 			if ($data === null){
-				$this->addElement('error');
+				$this->setAlert('error', array(
+					'title' => 'Record not found',
+					'text' => 'Record '.$id.' could not be deleted.'
+				));
 				$this->redirect('index');
 			} else {
-				$this->model->delete($id);
-				$this->addElement('success');
+				$affected = $this->model->delete($id);
+				if($affected >= 1) {
+					$this->setAlert('success', array(
+						'title' => 'SUCCESS',
+						'text' => 'Record '. $id . ' has been deleted'
+					));
+				} else {
+					$this->setAlert('error', array(
+						'title' => 'ERROR',
+						'text' =>   'Could not delete Record'. $id
+					));
+				}
 				$this->redirect('index');
 			}
 		}
