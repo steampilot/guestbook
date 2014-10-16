@@ -1,18 +1,27 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: ShinKenDo
- * Date: 15.09.14
- * Time: 19:11
+ * User: Jerome Roethlisberger
+ * Date: 24.09.14
+ * Time: 15:43
  */
+
 
 
 $session_user_id = 2;
 $today = $app['today'];
 $btnUrl = __BASE_URL__.'User/index';
 $btnText = 'Back to the List';
-$submitUrl = __BASE_URL__.'User/add'
+$id = $user['id'];
+$name = $user['name'];
+$email = $user['email'];
+$role = $user['role'];
+$created = $user['created'];
+$modified = $today;
+$submitUrl = __BASE_URL__.'User/edit?id='.$id;
+var_dump($this);
 ?>
+
 <main class="container">
 	<header class="jumbo-narrow col-lg-4">
 		<h1>
@@ -32,25 +41,20 @@ $submitUrl = __BASE_URL__.'User/add'
 			</div>
 			<div class="panel-body">
 				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($submitUrl); ?>" method="post">
-					<input type="hidden" id="created" name="created" value="<?php ph($today); ?>">
-					<input type="hidden" name="role" value="3">
+					<input type="hidden" id="created" name="created" value="<?php ph($created); ?>">
+					<input type="hidden" id="modified" name="modified" value="<?php ph($modified); ?>">
+					<input type="hidden" name="role" value="<?php ph($role); ?>">
 					<div class="form-group">
 						<label for="subject">Name</label>
-						<input type="text" class="form-control" name="name" id="name" placeholder="Human readable name">
-					</div>
+						<input type="text" class="form-control" name="name" id="name" value="<?php ph($name); ?>">
+					</div
 					<div class="form-group">
 						<label for="subject">Email</label>
-						<input type="email" class="form-control" name="email" id="email" placeholder="you@email.com">
-					</div>
-					<div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" name="password" id="password" value="" size="32">
-					</div>
-					<div class="form-group">
-						<label for="password-check">Retype Password</label>
-						<input class="form-control" type="password" name="password-check" id="password-check" value="" size="32">
+						<input type="email" class="form-control" name="email" id="email" <?php ph($email); ?>>
 					</div>
 					<div class="form-inline">
+						<button type="role" class="btn btn-default">Role</button>
+						<div class="col-lg-offset-1">
 							<label class="radio-inline">
 								<input type="radio" name="role" id="role1" value="1"> Admin
 							</label>
@@ -60,8 +64,8 @@ $submitUrl = __BASE_URL__.'User/add'
 							<label class="radio-inline">
 								<input type="radio" name="role" id="role3" value="3"> Guest
 							</label>
+						</div>
 					</div>
-					<button type="submit" id='submit' class="btn btn-default">Submit</button>
 				</form>
 			</div>
 			<div class="panel-footer">
@@ -70,4 +74,3 @@ $submitUrl = __BASE_URL__.'User/add'
 		</div>
 	</article>
 </main>
-

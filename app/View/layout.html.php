@@ -48,6 +48,9 @@ include __VIEW__ . '/ViewElement/nav.html.php';
 	<p>&copy; Steampilot 2014</p>
 </footer>
 </body>
+<script src="assets/js/guestbook.js">
+
+</script>
 </html>
 <?php
 ph(var_dump($_GET,$_POST,$_SERVER));

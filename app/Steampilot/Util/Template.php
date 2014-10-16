@@ -29,6 +29,8 @@ class Template {
 			extract($this->viewVars, EXTR_REFS);
 		}
 		include $this->layoutFile;
-
+	}
+	public function getViewVars(){
+		return $this->viewVars;
 	}
 }

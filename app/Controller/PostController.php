@@ -22,6 +22,7 @@ class PostController extends Controller {
 	 * @var \Model\PostModel
 	 */
 	protected $model;
+	protected $validateError;
 
 	public function __construct($params) {
 		$modelName = array('Post','Posts');
@@ -47,6 +48,9 @@ class PostController extends Controller {
 	 */
 	public function add(){
 		$this->set("author", $this->model->getAuthor($author_id = 2));
+		if ($this->method === 'POST'){
+			$this->validate();
+		}
 		parent::add();
 	}
 
@@ -56,5 +60,19 @@ class PostController extends Controller {
 
 	public function delete() {
 		parent::delete();
+	}
+	public function validate() {
+		if (empty($_POST['subject'])){
+			$this->validateError['subject'] = "Subject must not be empty";
+		}
+		if (strlen($_POST['subject']) > 255){
+			$this->validateError['subject'] = "Subject must not be longer than 255 characters";
+		}
+		if(empty($_POST['message'])) {
+			$this->validateError['message'] = "Message must not be empty";
+		}
+		if (strlen($_POST['message']) > 1024) {
+			$this->validateError['message'] = "Message must not be longer than 1024";
+		}
 	}
 }

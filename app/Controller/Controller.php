@@ -98,9 +98,9 @@ abstract class Controller {
 		$this->tpl->render();
 		exit;
 	}
-	protected function redirect($controller = '', $action = '', $params = null) {
+	protected function redirect($controller = 'controller', $action = '', $params = null) {
 
-		header('Location: '.__BASE_URL__.'Post/index');
+		header('Location: '.__BASE_URL__.$this->modelName.'/index');
 		die();
 	}
 
@@ -157,7 +157,7 @@ abstract class Controller {
 				$this->setAlert('error', array(
 					'title' => 'NOT FOUND',
 					'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
-				$this->redirect('index');
+				$this->redirect();
 			} else {
 				$id = intval($this->GET['id']);
 				$data = $this->model->getOne($id);
