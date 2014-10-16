@@ -58,7 +58,14 @@ $submitUrl = __BASE_URL__.'Post/add';
 				</form>
 			</div>
 			<div class="panel-footer">
-				created Today
+				<div class="row">
+					<div class="col-sm-4">
+						<small><strong>Created:</strong><?php ph('Today'); ?></small>
+					</div>
+					<div class="col-sm-4">
+						<small><strong>Modified:</strong><?php ph('Today'); ?></small>
+					</div>
+				</div>
 			</div>
 		</div>
 	</article>

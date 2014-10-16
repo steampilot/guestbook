@@ -21,7 +21,7 @@ class UserModel extends Model {
 	 */
 	public function getOne($id) {
 		$db = $this->getDb();
-		$sql = 'SELECT id, name, email, role FROM user WHERE id = {id};';
+		$sql = 'SELECT id, name, email, role , created, modified FROM user WHERE id = {id};';
 		$fields = array(
 			'id'=> $id
 		);
@@ -29,7 +29,6 @@ class UserModel extends Model {
 		$result = $db->query($sql);
 		if (isset($result[0])) {
 			$result[0]['roleName'] = $this->getRoleName($result[0]['role']);
-			var_dump($result);
 			return $result[0];
 		} else {
 			return null;
@@ -55,7 +54,6 @@ class UserModel extends Model {
 			$newResult[] = $row;
 		}
 
-		var_dump($newResult);
 		return $newResult;
 	}
 	protected function getRoleName($role){
@@ -67,6 +65,16 @@ class UserModel extends Model {
 			case 3:
 				return 'Guest';
 		}
+	}
+	public function getOneByEmail($email){
+		$db = $this->getDb();
+		$sql = 'SELECT id, name, email FROM user WHERE email = {email};';
+		$fields = array(
+			'email'=> $email
+		);
+		$sql = prepare($sql, $fields);
+		$result = $db->query($sql);
+		return $result[0];
 	}
 
 	public function create($fields){

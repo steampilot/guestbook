@@ -37,8 +37,6 @@ $deleteUrl =__BASE_URL__.'Post/delete?id='.$post['id'];
 				<h1>
 					<?php ph($subject); ?>
 				</h1>
-				<a class="btn-small btn-success inline" href="<?php ph($editUrl); ?>">Edit</a>
-				<a class="btn-small btn-danger inline" href="<?php ph($deleteUrl); ?>">Delete</a>
 			</div>
 
 

@@ -58,10 +58,18 @@ abstract class Controller {
 			)
 		);
 		if(isset($_SESSION['alert'])){
-			var_dump($_SESSION);
+
 				$this->addElement($_SESSION['alert']['type'],$_SESSION['alert']['params']);
+			/**
+			 * Some how the controller gets loaded multiple times till the view is rendered
+			 *
+			 */
+			$_SESSION['call_cycle'] ++;
+			if($_SESSION['call_cycle'] >= 3){
+				unset($_SESSION['alert']);
+				$_SESSION['call_cycle'] = 0;
 			}
-			unset($_SESSION['alert']);
+		}
 	}
 	/**
 	 * Gets the template object
@@ -96,17 +104,18 @@ abstract class Controller {
 		$this->tpl->addViewFile(__VIEW__.'/'.
 			$this->modelName.'/'.$view.'.html.php');
 		$this->tpl->render();
+
 		exit;
 	}
-	protected function redirect($controller = 'controller', $action = '', $params = null) {
-
-		header('Location: '.__BASE_URL__.$this->modelName.'/index');
+	protected function redirect($controller = 'Post', $action = 'index', $params = null) {
+		header('Location: '.__BASE_URL__.$controller.'/'.$action);
 		die();
 	}
 
 	public function index(){
 
 		$this->set(strtolower($this->modelNamePlural), $this->model->getAll());
+
 		$this->render('index');
 	}
 
@@ -115,14 +124,14 @@ abstract class Controller {
 			$this->setAlert('error', array(
 				'title' => 'NOT FOUND',
 				'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
-				$this->redirect('index');
+				$this->redirect();
 		} else {
 			$id = intval($this->GET['id']);
 			$data = $this->model->getOne($id);
 			if ($data === null){
 				$this->setAlert('error', array(
 					'title' => 'NOT FOUND',
-					'text' => 'Post Nr: '. $id . ' could not be found.'
+					'text' => 'Entry could not be found'
 				));
 				$this->redirect();
 			} else {
@@ -139,16 +148,16 @@ abstract class Controller {
 			$affected = $this->model->create($_POST);
 			if ($affected >= 1) {
 				$this->setAlert('success', array(
-					'title' => 'New Post created',
-					'text' => 'Post Nr '. $id. ' has been created'
+					'title' => 'Created',
+					'text' => 'New entry has been created'
 				));
 			} else {
-				$this->set('error', array(
+				$this->setAlert('error', array(
 					'title' => 'ERROR',
-					'text' => 'Post create a new post'
+					'text' => 'Could not create new entry'
 				));
 			}
-			$this->redirect('index');
+			$this->redirect();
 		}
 	}
 	public function edit() {
@@ -200,7 +209,7 @@ abstract class Controller {
 					'title' => 'Record not found',
 					'text' => 'Record '.$id.' could not be deleted.'
 				));
-				$this->redirect('index');
+				$this->redirect();
 			} else {
 				$affected = $this->model->delete($id);
 				if($affected >= 1) {
@@ -214,7 +223,7 @@ abstract class Controller {
 						'text' =>   'Could not delete Record'. $id
 					));
 				}
-				$this->redirect('index');
+				$this->redirect();
 			}
 		}
 	}

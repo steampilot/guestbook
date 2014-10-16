@@ -44,11 +44,11 @@ $submitUrl = __BASE_URL__.'User/add'
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input type="password" class="form-control" name="password" id="password" value="" size="32">
+						<input type="password" class="form-control" name="password" id="password" size="32">
 					</div>
 					<div class="form-group">
 						<label for="password-check">Retype Password</label>
-						<input class="form-control" type="password" name="password-check" id="password-check" value="" size="32">
+						<input class="form-control" type="password" name="password-check" id="password-check"  size="32">
 					</div>
 					<div class="form-inline">
 							<label class="radio-inline">

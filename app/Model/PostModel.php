@@ -65,7 +65,8 @@ class PostModel extends Model {
 					u.name as author_name,
 					u.email as author_email
 				FROM post AS p
-				LEFT JOIN user AS u ON p.author_id = u.id;';
+				LEFT JOIN user AS u ON p.author_id = u.id
+				ORDER BY p.id DESC;';
 		$result = $db->query($sql);
 		return $result;
 	}
@@ -84,7 +85,6 @@ class PostModel extends Model {
 				FROM user
 				WHERE id = {id};';
 		$sql = prepare($sql, $fields, false);
-		var_dump($sql);
 		$result = $db->query($sql);
 		if(isset($result[0])){
 			return$result[0];

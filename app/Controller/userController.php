@@ -41,17 +41,40 @@ class UserController extends Controller {
 	 * @uses \Model\UserModel::getAuthor() to retrieve data about the creator of the post.
 	 */
 	public function add(){
-		parent::add();
+		if ($this->method === 'GET') {
+			$this->render('add');
+		} else if ($this->method === 'POST'){
+			if($this->validate('uniqueEmail')){
+				$affected = $this->model->create($_POST);
+				if($affected >=1) {
+					$result = $this->model->getOneByEmail($_POST);
+					$_SESSION['sessionUserId'] = $result['id'];
+					$this->setAlert('success');
+					$this->redirect();
+				} else {
+					$this->setAlert('error');
+					$this->redirect();
+				}
+			} else {
+				$this->setAlert('error',array(
+					'title'=> 'EMAIL USED',
+					'text' => 'this email is allready registered. Pls login with it or contact the admin in case you
+					forgot your credentials.'
+				));
+				$this->set('user',$_POST);
+				$this->redirect('User','add');
+			}
+		}
 	}
-
-	public function edit() {
-
-		parent::edit();
-	}
-
-	public function delete() {
-		parent::delete();
-	}
-	public function validate() {
+	public function validate($validation = null){
+		if($validation ==='uniqueEmail'){
+			$result = $this->model->getOneByEmail($_POST['email']);
+			if ($result === null){
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return null;
 	}
 }

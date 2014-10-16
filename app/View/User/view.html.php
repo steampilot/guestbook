@@ -6,25 +6,21 @@
  * Time: 19:11
  */
 
-$subject = $post['subject']; // The headline or Subject of the post
-$message = $post['message']; // The message of that post
-$created = $post['created']; // The date time of creation
-$modified = $post['modified']; //The date time of the last modification
-$author_name = $post['author_name']; // The name of the Author
-$author_email = $post['author_email']; // the Email of the Author
+$name = $user['name']; // The headline or Subject of the post
+$email = $user['email']; // The message of that post
+$created = $user['created']; // The date time of creation
+$modified = $user['modified']; //The date time of the last modification
 
 $btnUrl = __BASE_URL__.'Post/index';
 $btnText = 'Back to the List';
-$editUrl = __BASE_URL__. 'User/edit?id='.$post['id'];
-$deleteUrl =__BASE_URL__.'User/delete?id='.$post['id'];
 ?>
 <main class="container">
 <header class="jumbo-narrow col-lg-4">
 	<h1>
-		<?php ph($author_name); ?>
+		<?php ph($name); ?>
 	</h1>
 	<p>
-		<?php ph($author_email); ?>
+		<?php ph($email); ?>
 	</p>
 	<p>
 		<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
@@ -35,17 +31,15 @@ $deleteUrl =__BASE_URL__.'User/delete?id='.$post['id'];
 		<div class="panel-heading">
 			<div class="inline">
 				<h1>
-					<?php ph($subject); ?>
+					<?php ph('some other info'); ?>
 				</h1>
-				<a class="btn-small btn-success inline" href="<?php ph($editUrl); ?>">Edit</a>
-				<a class="btn-small btn-danger inline" href="<?php ph($deleteUrl); ?>">Delete</a>
 			</div>
 
 
 
 		</div>
 		<div class="panel-body">
-			<?php ph($message); ?>
+			<?php ph('Some more info'); ?>
 		</div>
 		<div class="panel-footer">
 			<div class="row">

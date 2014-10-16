@@ -29,7 +29,7 @@ class Router {
 		$parsedUri = array_slice(explode('/', parse_url($this->uri)['path']), $scriptNameCount);
 		$controller = '\Controller\\' . ucfirst(strtolower($parsedUri[0])) . 'Controller';
 		if ($controller === '\Controller\Controller') {
-			$controller = '\Controller\IndexController';
+			$controller = '\Controller\PostController';
 		} else if (!class_exists($controller)) {
 			echo 'Controller <strong>' . $controller . '</strong> dos not exist';
 			die;

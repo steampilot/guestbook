@@ -30,12 +30,21 @@ class PostController extends Controller {
 	}
 
 	public function index() {
-		$this->addElement('jumbo', array(
-			'title'=> Config::get('app.name'),
-			'text' => "This is awesome!",
-			'btn-text' => 'Create New Post',
-			'btn-url' => __BASE_URL__ . 'Post/add'
-		));
+		if (isset($_SESSION['sessionUserId'])) {
+			$this->addElement('jumbo', array(
+				'title'=> 'SPGB - Hello and welcome!',
+				'text' => "This is awesome!",
+				'btn-text' => 'Create New Post',
+				'btn-url' => __BASE_URL__ . 'Post/add'
+			));
+		} else {
+			$this->addElement('jumbo', array(
+				'title' => 'Contribute!',
+				'text' => 'Register now to write something to this guest book or Login with your account',
+				'btn-text' => 'Register',
+				'btn-url' => __BASE_URL__. 'User/add'
+			));
+		}
 		parent::index();
 	}
 
@@ -47,7 +56,7 @@ class PostController extends Controller {
 	 * @uses \Model\PostModel::getAuthor() to retrieve data about the creator of the post.
 	 */
 	public function add(){
-		$this->set("author", $this->model->getAuthor($author_id = 2));
+		$this->set("author", $this->model->getAuthor($_SESSION['sessionUserId']));
 		if ($this->method === 'POST'){
 			$this->validate();
 		}

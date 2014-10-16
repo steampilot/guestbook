@@ -22,7 +22,6 @@ $published = $post ['published'];
 $created = $post['created'];
 $modified = $today;
 $submitUrl = __BASE_URL__.'Post/edit?id='.$id;
-var_dump($this);
 ?>
 
 <main class="container">
@@ -43,7 +42,7 @@ var_dump($this);
 	<article id='postView' class="col-lg-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Write a Post</h3>
+				<h3>Edit your post</h3>
 			</div>
 			<div class="panel-body">
 				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($submitUrl); ?>" method="post">
@@ -74,7 +73,14 @@ var_dump($this);
 				</form>
 			</div>
 			<div class="panel-footer">
-				created Today
+				<div class="row">
+					<div class="col-sm-4">
+						<small><strong>Created:</strong><?php ph($created); ?></small>
+					</div>
+					<div class="col-sm-4">
+						<small><strong>Modified:</strong><?php ph('Today'); ?></small>
+					</div>
+				</div>
 			</div>
 		</div>
 	</article>
