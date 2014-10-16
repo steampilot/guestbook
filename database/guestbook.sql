@@ -1,9 +1,10 @@
+CREATE DATABASE  IF NOT EXISTS `spgb` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `spgb`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: spgb
+-- Host: localhost    Database: spgb
 -- ------------------------------------------------------
--- Server version	5.6.16
+-- Server version	5.6.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -17,63 +18,65 @@ USE `spgb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `posts`
+-- Table structure for table `post`
 --
 
-DROP TABLE IF EXISTS `posts`;
+DROP TABLE IF EXISTS `post`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `posts` (
+CREATE TABLE `post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `users_id` int(11) NOT NULL,
+  `author_id` int(11) DEFAULT NULL,
   `subject` varchar(255) DEFAULT NULL,
   `message` text NOT NULL,
-  `is_published` tinyint(1) DEFAULT NULL,
+  `published` tinyint(4) DEFAULT NULL,
   `created` datetime NOT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_posts_users_idx` (`users_id`),
-  CONSTRAINT `fk_posts_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `fk_posts_users_idx` (`author_id`),
+  CONSTRAINT `fk_posts_users` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `posts`
+-- Dumping data for table `post`
 --
 
-LOCK TABLES `posts` WRITE;
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,1,'first post','This is the first post of this guestbook ',1,'2014-09-04 14:15:00',NULL);
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+LOCK TABLES `post` WRITE;
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` VALUES (1,1,'first post','This is the first post of this guestbook ',1,'2014-09-04 14:15:00',NULL),(37,2,'test-subject','test-message',1,'2014-05-24 05:24:00','2014-05-24 05:24:00'),(39,2,'{$subject}','{$message}',1,'2014-05-24 05:24:00','2014-05-24 05:24:00'),(40,2,'uiaeuia','euiaeuiae',1,'2014-05-24 05:24:00','2014-05-24 05:24:00'),(41,2,'vlcwvlcw','vlcwvlcw',1,'2014-09-27 00:00:00',NULL),(45,2,'uiaeuiae','uiaeuiae',0,'2014-10-14 01:10:28',NULL);
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `roles_id` int(11) NOT NULL,
+  `role` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,1,'admin','info@steampilot.ch','masterpass'),(2,0,'Jérôme Röthlisberger','jerome.roethlisberger@gibmit.ch','gibmitpass'),(3,0,'Daniel Opitz','daniel.opitz@orca.ch','opitzpass');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,1,'admin','info@steampilot.ch','masterpass','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,2,'Jérôme Röthlisberger','jerome.roethlisberger@gibmit.ch','gibmitpass','0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,3,'Daniel Opitz','daniel.opitz@orca.ch','opitzpass','0000-00-00 00:00:00','0000-00-00 00:00:00'),(6,1,'uiaeuiaeuiae','uiaeuiaeuiae@uiyatiaj.uiaed','mPlGh3w6GQ','0000-00-00 00:00:00','0000-00-00 00:00:00'),(7,3,'uiaeuiae','uiae@utigig.aga','kRM4Mwi4jb','0000-00-00 00:00:00','0000-00-00 00:00:00'),(8,3,'Cindy Sterling','Crit@agga.3g','Rve9vDsY32','0000-00-00 00:00:00','0000-00-00 00:00:00'),(9,3,'uiaeuiae','jerome.roethlisberger@steampilot.ch','$2y$10$BRFhY1VqQz4f6inhqE7BUumIoxM8owS75x0Sdp','0000-00-00 00:00:00','0000-00-00 00:00:00');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -85,4 +88,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-10 10:26:29
+-- Dump completed on 2014-10-16 10:21:53
