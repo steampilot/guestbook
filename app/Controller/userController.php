@@ -8,10 +8,6 @@
 
 namespace Controller;
 
-use Config\Config;
-use Model\UserModel;
-use Steampilot\Util\ErrorWidget;
-
 /**
  * Class PostController
  * @package Controller
@@ -30,7 +26,16 @@ class UserController extends Controller {
 	}
 
 	public function index() {
-		parent::index();
+		if($_SESSION['sessionUserId'] == 1) {
+			parent::index();
+		} else {
+			$this->setAlert('error' ,array(
+				'title' => 'ACCESS DENIED',
+				'text' => 'Only admins are able to view this page'
+			));
+			$this->redirect('Post','index');
+		}
+
 	}
 
 	public function view() {
@@ -47,9 +52,13 @@ class UserController extends Controller {
 			if($this->validate('uniqueEmail')){
 				$affected = $this->model->create($_POST);
 				if($affected >=1) {
-					$result = $this->model->getOneByEmail($_POST);
+					$result = $this->model->getOneByEmail($_POST['email']);
 					$_SESSION['sessionUserId'] = $result['id'];
-					$this->setAlert('success');
+					$_SESSION['active'] = true;
+					$this->setAlert('success', array(
+						'title' => 'REGISTRATION SUCCESS!',
+						'text' => 'Welcome: '. $_POST['name']. ' you are now able to post messages'
+					));
 					$this->redirect();
 				} else {
 					$this->setAlert('error');
@@ -58,7 +67,7 @@ class UserController extends Controller {
 			} else {
 				$this->setAlert('error',array(
 					'title'=> 'EMAIL USED',
-					'text' => 'this email is allready registered. Pls login with it or contact the admin in case you
+					'text' => 'this email is already registered. Pls login or contact the admin in case you
 					forgot your credentials.'
 				));
 				$this->set('user',$_POST);
@@ -66,6 +75,50 @@ class UserController extends Controller {
 			}
 		}
 	}
+	public function edit(){
+		if ($this->method === 'GET'){
+			if ($this->GET === null ) {
+				$this->setAlert('error', array(
+					'title' => 'NOT FOUND',
+					'text' => 'A Horde of monkeys has been dispatched to search for the missing record'));
+				$this->redirect();
+			} else {
+				$id = intval($this->GET['id']);
+				$data = $this->model->getOne($id);
+				if ($data === null){
+					$this->setAlert('error', array(
+						'title' => 'NOT FOUND',
+						'text' => 'Post Nr: '. $id . ' could not be found.'
+					));
+					$this->redirect();
+				} else {
+					$this->set(strtolower($this->modelName), $data);
+					$this->render('edit');
+				}
+			}
+		}
+		if ($this->method === 'POST'){
+			if($this->model->checkPassword($_POST['id'],$_POST['password-old'])){
+				echo 'save the new passwort';
+				$affected = $this->model->update($_POST);
+				if($affected >=1) {
+					$this->setAlert('success', array(
+						'title' => 'PASSWORD CHANGED',
+						'text' => 'The Password for ' .$_POST['name']. ' has been changed.'
+					));
+				}
+				$this->redirect();
+			} else {
+				$this->setAlert('error', array(
+					'title' => 'Password incorrect',
+					'text' => 'the old password is incorrect'
+				));
+				$this->set('user',$_POST);
+				$this->redirect('User','edit',$_POST['id']);
+			}
+		}
+	}
+
 	public function validate($validation = null){
 		if($validation ==='uniqueEmail'){
 			$result = $this->model->getOneByEmail($_POST['email']);
@@ -75,6 +128,15 @@ class UserController extends Controller {
 				return false;
 			}
 		}
+		if($validation ==='sameEmail'){
+			$result = $this->model->getOne($_POST['id']);
+				if ($result['email'] === $_POST['email']){
+				return true;
+			} else {
+			} return false;
+		}
 		return null;
 	}
+
+
 }
