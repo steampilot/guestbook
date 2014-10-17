@@ -12,9 +12,7 @@ require_once __DIR__ . '/app/Steampilot/Util/toolbox.php';
 
 use Steampilot\Util\Debug;
 use Steampilot\Util\Router;
-session_name('SPGB-Guestbook');
 
-@session_start();
 
 $router = new Router();
 $router->run();
