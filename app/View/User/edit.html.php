@@ -8,26 +8,31 @@
 
 
 
-$session_user_id = 2;
 $today = $app['today'];
-$btnUrl = __BASE_URL__.'User/index';
+$btnUrl = __BASE_URL__.'Post/index';
 $btnText = 'Back to the List';
 $id = $user['id'];
 $name = $user['name'];
 $email = $user['email'];
-$role = $user['role'];
 $created = $user['created'];
 $modified = $today;
 $submitUrl = __BASE_URL__.'User/edit?id='.$id;
+$passwordEditUrl = __BASE_URL__. 'User/changePassword?id='.$id;
+$alert = false;
+if (!empty($_POST)){
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$alert = true;
+}
 ?>
 
 <main class="container">
 	<header class="jumbo-narrow col-lg-4">
 		<h1>
-			Create New User
+			<?php ph($name); ?>
 		</h1>
 		<p>
-			Password will be set afterwards
+			<?php ph($email); ?>
 		</p>
 		<p>
 			<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
@@ -36,25 +41,24 @@ $submitUrl = __BASE_URL__.'User/edit?id='.$id;
 	<article id='postView' class="col-lg-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3>Account Settings</h3>
+				<h3>Change Password</h3>
 			</div>
 			<div class="panel-body">
 				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($submitUrl); ?>" method="post">
+					<input type="hidden" id="id" name="id" value="<?php ph($id); ?>"
 					<input type="hidden" id="created" name="created" value="<?php ph($created); ?>">
 					<input type="hidden" id="modified" name="modified" value="<?php ph($today); ?>">
-					<input type="hidden" name="role" value="<?php ph($role); ?>">
 					<div class="form-group">
-						<label for="subject">Name</label>
-						<input type="text" class="form-control"
-						       name="name" id="name"
-						       placeholder="Human readable name" value="<?php ph($name); ?>">
+						<label for="password-old">Password-old</label>
+						<input type="password" class="form-control" name="password-old" id="password-old" size="32">
 					</div>
 					<div class="form-group">
-						<label for="subject">Email</label>
-						<input type="email" class="form-control"
-						       value="<?php ph($email); ?>" name="email"
-						       id="email"
-						       placeholder="your@email.com">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" name="password" id="password" size="32">
+					</div>
+					<div class="form-group">
+						<label for="password-check">Retype Password</label>
+						<input class="form-control" type="password" name="password-check" id="password-check"  size="32">
 					</div>
 					<button type="submit" id='submit' class="btn btn-default">Submit</button>
 				</form>
