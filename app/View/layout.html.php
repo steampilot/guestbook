@@ -33,8 +33,6 @@
 	<script src="assets/js/bootstrap.min.js"></script>
 
 </head>
-<?php var_dump($_SESSION); ?>
-<?php var_dump($_POST); ?>
 
 <body>
 <?php
@@ -54,5 +52,3 @@ include __VIEW__ . '/ViewElement/nav.html.php';
 
 </script>
 </html>
-<?php
-?>
