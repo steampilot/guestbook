@@ -39,7 +39,7 @@ class PostController extends Controller {
 			));
 		} else {
 			$this->addElement('jumbo', array(
-				'title' => 'Contribute!',
+				'title' => 'Contribute Now!',
 				'text' => 'Register now to write something to this guest book or Login with your account',
 				'btn-text' => 'Register',
 				'btn-url' => __BASE_URL__. 'User/add'
