@@ -38,7 +38,7 @@ class PostModel extends Model {
 			'id'=> $id
 		)
 		;
-		$sql = prepare($sql, $fields);
+		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
 		if (isset($result[0])) {
 			return $result[0];
@@ -68,6 +68,12 @@ class PostModel extends Model {
 				LEFT JOIN user AS u ON p.author_id = u.id
 				ORDER BY p.id DESC;';
 		$result = $db->query($sql);
+		foreach ($result as $id => $post){
+			if(strlen($post['message']) >40 ){
+				$result[$id]['message'] = substr($post['message'],0,40).' ... Read more';
+			}
+
+		}
 		return $result;
 	}
 
@@ -84,7 +90,7 @@ class PostModel extends Model {
 		$sql = 'SELECT id, name, email
 				FROM user
 				WHERE id = {id};';
-		$sql = prepare($sql, $fields, false);
+		$sql = $db->prepare($sql, $fields, false);
 		$result = $db->query($sql);
 		if(isset($result[0])){
 			return$result[0];
@@ -96,7 +102,7 @@ class PostModel extends Model {
 		$db = $this->getDb();
 		$sql = 'INSERT INTO post (author_id, subject, message, published, created)
 				VALUES ({author_id}, {subject}, {message}, {published}, {created});';
-		$sql = prepare($sql, $fields, true);
+		$sql = $db->prepare($sql, $fields, true);
 		return $db->exec($sql);
 	}
 
@@ -108,7 +114,7 @@ class PostModel extends Model {
 				published = {published},
 				modified = {modified}
 				WHERE id = {id};';
-		$sql = prepare($sql,$fields);
+		$sql = $db->prepare($sql,$fields);
 		return $db->exec($sql);
 	}
 
@@ -119,7 +125,7 @@ class PostModel extends Model {
 		$fields = array(
 			'id' => $id
 		);
-		$sql = prepare($sql,$fields);
+		$sql = $db->prepare($sql,$fields);
 		return $db->exec($sql);
 	}
 	public function validate($data){
