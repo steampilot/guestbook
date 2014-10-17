@@ -8,10 +8,6 @@
 
 namespace Controller;
 
-use Config\Config;
-use Model\PostModel;
-use Steampilot\Util\ErrorWidget;
-
 /**
  * Class PostController
  * @package Controller
@@ -31,8 +27,9 @@ class PostController extends Controller {
 
 	public function index() {
 		if (isset($_SESSION['sessionUserId'])) {
+			$user = $this->model->getAuthor($_SESSION['sessionUserId']);
 			$this->addElement('jumbo', array(
-				'title'=> 'SPGB - Hello and welcome!',
+				'title'=> 'SPGB - Hello '.$user['name'].' and welcome!',
 				'text' => "This is awesome!",
 				'btn-text' => 'Create New Post',
 				'btn-url' => __BASE_URL__ . 'Post/add'
