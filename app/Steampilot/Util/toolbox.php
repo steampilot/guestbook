@@ -154,23 +154,9 @@ function interpolate($message, array $context = array()) {
 	}
 	return strtr($message,$replace);
 }
-function quote($message, $delimiter = '\'') {
-	$quoted = $delimiter . $message . $delimiter;
-	return $quoted;
+function quote($message = '', $delimiter = '\''){
+	return $delimiter.$message.$delimiter;
 }
-function prepare($sql, array $fields = array(), $escaping = true){
-	$replace = array();
-	foreach($fields as $key => $value) {
-		if ($escaping) {
-
-			$replace['{'.$key.'}'] = quote($value);
-		} else {
-			$replace['{'.$key.'}'] = $value;
-		}
-	}
-	return strtr($sql,$replace);
-}
-
 /**
  * Embraces a string with brackets
  * @param string $string The String to be embraced;
@@ -194,6 +180,9 @@ function generateRandomString($length = 10){
 		$randomString .= $characters[rand(0, strlen($characters) - 1)];
 	}
 	return $randomString;
+}
+function debug_log($message = ''){
+	file_put_contents('log.txt',$message,FILE_APPEND);
 }
 
 
