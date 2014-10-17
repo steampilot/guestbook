@@ -25,7 +25,7 @@ class UserModel extends Model {
 		$fields = array(
 			'id'=> $id
 		);
-		$sql = prepare($sql, $fields);
+		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
 		if (isset($result[0])) {
 			$result[0]['roleName'] = $this->getRoleName($result[0]['role']);
@@ -68,34 +68,40 @@ class UserModel extends Model {
 	}
 	public function getOneByEmail($email){
 		$db = $this->getDb();
-		$sql = 'SELECT id, name, email FROM user WHERE email = {email};';
+		$sql = 'SELECT id, name, email, password FROM user WHERE email = {email};';
 		$fields = array(
 			'email'=> $email
 		);
-		$sql = prepare($sql, $fields);
+		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
-		return $result[0];
+		if (isset($result[0])) {
+			return $result[0];
+		} else {
+			return null;
+		}
 	}
 
 	public function create($fields){
 		$db = $this->getDb();
-		$fields['password'] = password_hash($fields['password'],PASSWORD_DEFAULT);
-		$sql = 'INSERT INTO user (name, email, role, password)
-				VALUES ({name}, {email}, {role}, {password});';
-		$sql = prepare($sql, $fields, true);
+
+
+		$hash = password_hash($fields['password'],PASSWORD_DEFAULT);
+		$fields['password'] = $hash;
+		$sql = 'INSERT INTO user (name, email, role, password, created)
+				VALUES ({name}, {email}, {role}, {password}, {created});';
+		$sql = $db->prepare($sql, $fields, true);
 		return $db->exec($sql);
 	}
 
 	public function update($fields) {
 		$db = $this->getDb();
 				$sql = 'UPDATE user SET
-				name = {name},
-				email = {email},
-				role = {role}
 				password = {password}
+				modified = {modified},
 				WHERE id = {id};';
-		$fields['password'] = password_hash($fields['password'],PASSWORD_DEFAULT);
-		$sql = prepare($sql,$fields);
+		$hash = password_hash($fields['password'],PASSWORD_DEFAULT);
+		$fields['password'] = $hash;
+		$sql = $db->prepare($sql,$fields);
 		return $db->exec($sql);
 	}
 
@@ -106,7 +112,7 @@ class UserModel extends Model {
 		$fields = array(
 			'id' => $id
 		);
-		$sql = prepare($sql,$fields);
+		$sql = $db->prepare($sql,$fields);
 		return $db->exec($sql);
 	}
 
@@ -123,21 +129,22 @@ class UserModel extends Model {
 		$fields = array(
 			'id' => $id
 		);
-		$sql = prepare($sql, $fields);
+		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
-		return password_verify($password,$result);
+		return password_verify($password,$result[0]['password']);
 	}
 	public function setPassword($id,$password){
 		$db = $this->getDb();
 		$password = password_hash($password,PASSWORD_DEFAULT);
 		$sql = $sql = 'UPDATE user SET
 				password = {password}
+				modified = {modified}
 				WHERE id = {id};';
 		$fields = array(
 			'id' => $id,
 			'password' => $password
 		);
-		$sql = prepare($sql,$fields);
+		$sql = $db->prepare($sql,$fields);
 		return $db->exec($sql);
 	}
 	public function validate($data){
