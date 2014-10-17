@@ -31,6 +31,9 @@ abstract class Controller {
 	 * @param Array $modelNames A list of the model names in singular and plural
 	 */
 	public function __construct($params = null,$modelNames = null) {
+		$this->startSession();
+
+
 		$this->params = $params;
 		if(empty($modelNames)){
 			echo 'Model name is not set';
@@ -57,18 +60,12 @@ abstract class Controller {
 				'today' => date('Y-m-d h:m:s')
 			)
 		);
+
 		if(isset($_SESSION['alert'])){
 
 				$this->addElement($_SESSION['alert']['type'],$_SESSION['alert']['params']);
-			/**
-			 * Some how the controller gets loaded multiple times till the view is rendered
-			 *
-			 */
-			$_SESSION['call_cycle'] ++;
-			if($_SESSION['call_cycle'] >= 3){
-				unset($_SESSION['alert']);
-				$_SESSION['call_cycle'] = 0;
-			}
+			$_SESSION['alert'] = null;
+			unset($_SESSION['alert']);
 		}
 	}
 	/**
@@ -107,8 +104,11 @@ abstract class Controller {
 
 		exit;
 	}
-	protected function redirect($controller = 'Post', $action = 'index', $params = null) {
-		header('Location: '.__BASE_URL__.$controller.'/'.$action);
+	protected function redirect($controller = 'Post', $action = 'index', $param = null) {
+		if ($param !== null) {
+			$param = '?id='.$param;
+		}
+		header('Location: '.__BASE_URL__.$controller.'/'.$action.$param);
 		die();
 	}
 
@@ -226,5 +226,15 @@ abstract class Controller {
 				$this->redirect();
 			}
 		}
+	}
+
+	public function startSession(){
+		session_name('SPGB-Guestbook');
+
+		session_start();
+	}
+
+	public function destroySession(){
+		session_destroy();
 	}
 }
