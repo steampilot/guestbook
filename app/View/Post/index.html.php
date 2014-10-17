@@ -16,25 +16,26 @@
 	$editUrl = __BASE_URL__.'Post/edit?id='.$post['id'];
 	$deleteUrl = __BASE_URL__.'Post/delete?id='.$post['id'];
 	?>
-	<article class="col-md-2 ">
+	<article class="article col-md-3">
 		<header>
-			<h2><?php ph($subject);?></h2>
 			<small>
-				<?php ph($author_name); ?>
+					<?php ph($author_name); ?>
 			</small>
-			<?php if(isset($_SESSION['sessionUserId']) && $_SESSION['sessionUserId'] === $post['author_id']){?>
-			<a class="btn-small btn-success inline" href="<?php ph($editUrl); ?>">Edit</a>
-			<a class="btn-small btn-danger inline" href="<?php ph($deleteUrl); ?>">Delete</a>
-			<?php } ?>
+			<h3><?php ph($subject);?></h3>
 		</header>
-		<hr>
 		<section>
-		<p><?php ph($message);?></p>
+		<p><strong>
+			<?php ph($message);?>
+		</strong>
+		</p>
 		</section>
 		<footer>
-		<hr>
-
-		<p><a class="btn btn-default" href="<?php pu($btnUrl);?>">View details &raquo;</a></p>
+		<a class="btn btn-small btn-default inline" href="<?php pu($btnUrl);?>">View details &raquo;</a>
+			<?php if(isset($_SESSION['sessionUserId']) && $_SESSION['sessionUserId'] === $post['author_id']){?>
+				<a class="btn btn-xs btn-success inline" href="<?php ph($editUrl); ?>">Edit</a>
+				<a class="btn btn-xs btn-danger inline" href="<?php ph($deleteUrl); ?>">Delete</a>
+			<?php } ?>
+			<hr>
 		</footer>
 	</article>
 	<?php }// end foreach?>
