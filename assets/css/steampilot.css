@@ -14,10 +14,10 @@
 .jumbo-narrow p {
     margin-bottom: 30px;
     font-size: 21px;
-    follnt-weight: 200
+    font-weight: 200
 }
 
-.jumbo-narrow > hr {
+.jumbo-narrow hr {
     border-top-color: #d5d5d5
 }
 
@@ -31,4 +31,8 @@
 #postView {
 	padding-top: 30px;
 
+}
+
+.article h3{
+    margin-top: 0px;
 }
