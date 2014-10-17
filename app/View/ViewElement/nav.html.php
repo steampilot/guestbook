@@ -29,7 +29,11 @@ $logoutUrl = __BASE_URL__.'Session/logout';
 			    <a class="btn btn-danger" href="<?php ph($logoutUrl); ?>">Logout</a>
 			    <a class="btn btn-default" href="<?php ph($accountEditUrl); ?>">Edit Account</a>
 		    </div>
-	    <?php } else { ?>
+	    <?php
+	    if($_SESSION['sessionUserId'] == 1) {?>
+		    <a class="btn btn-success" href="<?php pu(__BASE_URL__.'User/index'); ?>">Admin</a>
+	    <?php }
+	    } else { ?>
 			    <form class="navbar-form navbar-right" role="form" method="post" action="<?php ph($submitUrl); ?>">
 				    <div class="form-group">
 					    <input type="text" id='login_email' name='login_email' placeholder="Email"
