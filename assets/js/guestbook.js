@@ -2,8 +2,13 @@ jQuery(function(){
 	$("#submit").click(function(){
 		$(".help-block").hide();
 		var hasError = false;
+		var passwordOld = $("#password-old").val();
 		var passwordVal = $("#password").val();
 		var checkVal = $("#password-check").val();
+		if (passwordOld == '') {
+			$("#password-old").after('<span class="help-block">Please your old password.</span>');
+			hasError = true;
+		}
 		if (passwordVal == '') {
 			$("#password").after('<span class="help-block">Please enter a password.</span>');
 			hasError = true;
