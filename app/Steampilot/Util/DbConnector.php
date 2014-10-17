@@ -89,4 +89,23 @@ class DbConnector {
 		$affectedRows = $this->dbConnection->exec($sql);
 		return $affectedRows;
 	}
+
+	public function quote($message) {
+
+		$escaped = $this->dbConnection->quote($message ,PDO::PARAM_STR);
+		return $escaped;
+	}
+	public function prepare($sql, array $fields = array(), $escaping = true){
+		$replace = array();
+		foreach($fields as $key => $value) {
+			if ($escaping) {
+
+				$replace['{'.$key.'}'] = $this->quote($value);
+			} else {
+				$replace['{'.$key.'}'] = $value;
+			}
+		}
+		return strtr($sql,$replace);
+	}
+
 }
