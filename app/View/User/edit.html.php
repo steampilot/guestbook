@@ -7,19 +7,18 @@
  */
 
 
-
 $today = $app['today'];
-$btnUrl = __BASE_URL__.'Post/index';
+$btnUrl = __BASE_URL__ . 'Post/index';
 $btnText = 'Back to the List';
 $id = $user['id'];
 $name = $user['name'];
 $email = $user['email'];
 $created = $user['created'];
 $modified = $today;
-$submitUrl = __BASE_URL__.'User/edit?id='.$id;
-$passwordEditUrl = __BASE_URL__. 'User/changePassword?id='.$id;
+$submitUrl = __BASE_URL__ . 'User/edit?id=' . $id;
+$passwordEditUrl = __BASE_URL__ . 'User/changePassword?id=' . $id;
 $alert = false;
-if (!empty($_POST)){
+if (!empty($_POST)) {
 	$name = $_POST['name'];
 	$email = $_POST['email'];
 	$alert = true;
@@ -31,11 +30,14 @@ if (!empty($_POST)){
 		<h1>
 			<?php ph($name); ?>
 		</h1>
+
 		<p>
 			<?php ph($email); ?>
 		</p>
+
 		<p>
-			<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
+			<a href="<?php pu($btnUrl); ?>" class="btn btn-primary btn-lg"
+			   role="button"><?php ph($btnText); ?> &raquo;</a>
 		</p>
 	</header>
 	<article id='postView' class="col-lg-8">
@@ -48,6 +50,7 @@ if (!empty($_POST)){
 					<input type="hidden" id="id" name="id" value="<?php ph($id); ?>"
 					<input type="hidden" id="created" name="created" value="<?php ph($created); ?>">
 					<input type="hidden" id="modified" name="modified" value="<?php ph($today); ?>">
+
 					<div class="form-group">
 						<label for="password-old">Password-old</label>
 						<input type="password" class="form-control" name="password-old" id="password-old" size="32">
@@ -58,7 +61,7 @@ if (!empty($_POST)){
 					</div>
 					<div class="form-group">
 						<label for="password-check">Retype Password</label>
-						<input class="form-control" type="password" name="password-check" id="password-check"  size="32">
+						<input class="form-control" type="password" name="password-check" id="password-check" size="32">
 					</div>
 					<button type="submit" id='submit' class="btn btn-default">Submit</button>
 				</form>
@@ -72,6 +75,6 @@ if (!empty($_POST)){
 						<small><strong>Modified:</strong><?php ph($today); ?></small>
 					</div>
 				</div>
-		</div>
+			</div>
 	</article>
 </main>

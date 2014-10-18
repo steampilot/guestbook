@@ -1,3 +1,6 @@
+/**
+ * This function checks if a password input field is filled and if the two strings match
+ */
 jQuery(function(){
 	$("#submit").click(function(){
 		$(".help-block").hide();

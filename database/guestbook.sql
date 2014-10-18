@@ -34,8 +34,8 @@ CREATE TABLE `post` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_posts_users_idx` (`author_id`),
-  CONSTRAINT `fk_posts_users` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_posts_users` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,1,'first post','This is the first post of this guestbook ',1,'2014-09-04 14:15:00',NULL),(37,2,'test-subject','test-message',1,'2014-05-24 05:24:00','2014-05-24 05:24:00'),(39,2,'{$subject}','{$message}',1,'2014-05-24 05:24:00','2014-05-24 05:24:00'),(40,2,'uiaeuia','euiaeuiae',1,'2014-05-24 05:24:00','2014-05-24 05:24:00'),(41,2,'vlcwvlcw','vlcwvlcw',1,'2014-09-27 00:00:00',NULL),(45,2,'uiaeuiae','uiaeuiae',0,'2014-10-14 01:10:28',NULL);
+INSERT INTO `post` VALUES (46,14,'Submitbuttons?','It seemed proper for a restless team making a big mess at Research & Develompent Department\'s labs, that doing a full-scale test was the simplest way to learn if the rumours about our submit button really were as clearly idiotic as we told everyone they were. Admittedly, the amount of  times there would be an unlikely new discovery was how we finally concluded that we had to have a live test to really know wheter aur submit button was better than the others. That for some reason ended up raising more questions than answers.',0,'2014-10-18 07:10:47',NULL),(47,14,'Development Team','A group of impeccably-dressed representatives working at Steampilot Software Development Corporation felt clearly sure abut whether while cleaning up afte a possibly not-that-bad software glitch, the intern was pretty much out of options back in his broom cabinet there. We did get some good information on how quickly the coffee gets cold when the mug is filled with hot water instead. Granted, the terrible frequency at which we\'d find ourselfs disproving dubious theories on how some developers don\'t seem eager to take part in our projects as others do was how we got into that situation in the first place. However the case may be, this is where your coffee is spilled.',0,'2014-10-18 07:10:42',NULL),(48,15,'Demonstration Purposes','Originally built as a placeholder for a demonstration mock-up of a hand painted admin panel, the SPGB or Steampilot Guest Book was heralded as a far better and more reliable solution that its predecessors by webdeveloper throughout the comunity. It is now commonly seen in active service.',0,'2014-10-18 07:10:01',NULL),(49,15,'Twittr Bootstrap?','The bootstrap plugin was initially received with some skepticism by web developer amongs the board at Steampilot software science departement. as it defied the long-standing convention tat \"Complex-CODE!\" is always better. Despite this, the bootstrap plugin has found its place in the version controll system of any good developer who actually call him self a genious, being particulary useful at least for coloring the edges of a not over used table.',0,'2014-10-18 08:10:55',NULL),(50,15,'One Page Layout','After an intensive search for an web developer intern wit at least 23 years of not over used experience crazy enough to plan and build a revolutionary new website design, managers turned to renowned developer Jorgun Gwartop, a leader in the fealds of cheating and defying the second law of thermodynamics in his own personal ought to be washed coffe cup, as a last resort. He failed miserably at the job, and this is what we ended up with.',0,'2014-10-18 08:10:54',NULL);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,13 +60,13 @@ CREATE TABLE `user` (
   `role` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'admin','info@steampilot.ch','masterpass','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,2,'Jérôme Röthlisberger','jerome.roethlisberger@gibmit.ch','gibmitpass','0000-00-00 00:00:00','0000-00-00 00:00:00'),(3,3,'Daniel Opitz','daniel.opitz@orca.ch','opitzpass','0000-00-00 00:00:00','0000-00-00 00:00:00'),(6,1,'uiaeuiaeuiae','uiaeuiaeuiae@uiyatiaj.uiaed','mPlGh3w6GQ','0000-00-00 00:00:00','0000-00-00 00:00:00'),(7,3,'uiaeuiae','uiae@utigig.aga','kRM4Mwi4jb','0000-00-00 00:00:00','0000-00-00 00:00:00'),(8,3,'Cindy Sterling','Crit@agga.3g','Rve9vDsY32','0000-00-00 00:00:00','0000-00-00 00:00:00'),(9,3,'uiaeuiae','jerome.roethlisberger@steampilot.ch','$2y$10$BRFhY1VqQz4f6inhqE7BUumIoxM8owS75x0Sdp','0000-00-00 00:00:00','0000-00-00 00:00:00');
+INSERT INTO `user` VALUES (1,3,'Administrator','info@steampilot.ch','$2y$10$.K45qikSIM8s47a7E4PZQ.pRXvpEYIlEX.nJyinANqRVsRZFRxS3G','2014-10-18 07:10:15','0000-00-00 00:00:00'),(14,3,'Jérôme Röthlisberger','jerome.roethlisberger@gibmit.ch','$2y$10$jVqm.WM6vDhHiip1PSCAleZd0uFXTlkqJf52ujb5N4z0eU6pRBKXK','2014-10-18 07:10:26','0000-00-00 00:00:00'),(15,3,'Cindy Sterling','cindy2501@steampilot.ch','$2y$10$QH877IRBnYUFdCuRw5B5X.qxBUFS9JwFyfhvffUqcwRyhGCulGMWu','2014-10-18 07:10:45','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -88,4 +88,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-16 10:21:53
+-- Dump completed on 2014-10-18 20:24:02

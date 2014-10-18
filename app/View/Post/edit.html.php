@@ -7,10 +7,9 @@
  */
 
 
-
 $session_user_id = 2;
 $today = $app['today'];
-$btnUrl = __BASE_URL__.'Post/index';
+$btnUrl = __BASE_URL__ . 'Post/index';
 $btnText = 'Back to the List';
 $id = $post['id'];
 $author_id = $post['author_id'];
@@ -21,7 +20,7 @@ $message = $post ['message'];
 $published = $post ['published'];
 $created = $post['created'];
 $modified = $today;
-$submitUrl = __BASE_URL__.'Post/edit?id='.$id;
+$submitUrl = __BASE_URL__ . 'Post/edit?id=' . $id;
 ?>
 
 <main class="container">
@@ -32,11 +31,14 @@ $submitUrl = __BASE_URL__.'Post/edit?id='.$id;
 		<h1>
 			<?php ph($author_name); ?>
 		</h1>
+
 		<p>
 			<?php ph($author_email); ?>
 		</p>
+
 		<p>
-			<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
+			<a href="<?php pu($btnUrl); ?>" class="btn btn-primary btn-lg"
+			   role="button"><?php ph($btnText); ?> &raquo;</a>
 		</p>
 	</header>
 	<article id='postView' class="col-lg-8">
@@ -51,6 +53,7 @@ $submitUrl = __BASE_URL__.'Post/edit?id='.$id;
 					<input type="hidden" name="published" value="<?php ph($published); ?>">
 					<input type="hidden" name="created" value="<?php ph($created); ?>">
 					<input type="hidden" name="modified" value="<?php ph($modified); ?>">
+
 					<div class="form-group">
 						<label for="subject">Subject</label>
 						<input type="text" class="form-control" name="subject" id="subject"
@@ -58,14 +61,15 @@ $submitUrl = __BASE_URL__.'Post/edit?id='.$id;
 					</div>
 					<div class="form-group">
 						<label for="message">Message</label>
-						<textarea class="form-control" name="message" id="message " rows="3"><?php ph($message); ?></textarea>
+						<textarea class="form-control" name="message" id="message "
+						          rows="3"><?php ph($message); ?></textarea>
 
 					</div>
 					<div class="form-inline">
 						<button type="submit" class="btn btn-default">Submit</button>
 						<div class="checkbox col-lg-offset-1">
 							<label>
-								<input type="checkbox" VALUE="true"  id="is_published" name="is_published">  Message
+								<input type="checkbox" VALUE="true" id="is_published" name="is_published"> Message
 								is published
 							</label>
 						</div>

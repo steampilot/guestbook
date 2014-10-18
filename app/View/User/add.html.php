@@ -9,13 +9,13 @@
 
 $session_user_id = 2;
 $today = $app['today'];
-$btnUrl = __BASE_URL__.'Post/index';
+$btnUrl = __BASE_URL__ . 'Post/index';
 $btnText = 'Back to the List';
-$submitUrl = __BASE_URL__.'User/add';
+$submitUrl = __BASE_URL__ . 'User/add';
 $name = '';
 $email = '';
 $alert = false;
-if(isset($_POST) && !empty($_POST)){
+if (isset($_POST) && !empty($_POST)) {
 	$name = $_POST['name'];
 	$email = $_POST['email'];
 	$alert = true;
@@ -26,11 +26,14 @@ if(isset($_POST) && !empty($_POST)){
 		<h1>
 			Create New User
 		</h1>
+
 		<p>
 			You will be able to write to this message board.
 		</p>
+
 		<p>
-			<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
+			<a href="<?php pu($btnUrl); ?>" class="btn btn-primary btn-lg"
+			   role="button"><?php ph($btnText); ?> &raquo;</a>
 		</p>
 	</header>
 	<article id='postView' class="col-lg-8">
@@ -42,6 +45,7 @@ if(isset($_POST) && !empty($_POST)){
 				<form role="form" class="" accept-charset="UTF-8" action="<?php pu($submitUrl); ?>" method="post">
 					<input type="hidden" id="created" name="created" value="<?php ph($today); ?>">
 					<input type="hidden" name="role" value="3">
+
 					<div class="form-group">
 						<label for="subject">Name</label>
 						<input type="text" class="form-control"
@@ -62,7 +66,7 @@ if(isset($_POST) && !empty($_POST)){
 					</div>
 					<div class="form-group">
 						<label for="password-check">Retype Password</label>
-						<input class="form-control" type="password" name="password-check" id="password-check"  size="32">
+						<input class="form-control" type="password" name="password-check" id="password-check" size="32">
 					</div>
 					<button type="submit" id='submit' class="btn btn-default">Submit</button>
 				</form>

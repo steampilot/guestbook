@@ -1,4 +1,0 @@
-AuthName "Admin Section"
-AuthType Basic
-AuthUserFile "D:\DEV\XAMPP\htdocs\.htpasswd"
-Require valid-user

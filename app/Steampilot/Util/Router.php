@@ -7,24 +7,65 @@
  */
 
 namespace Steampilot\Util;
-
-class Router {
+/**
+ * Class Router
+ *
+ * This Class is responsible for directing and routing http request to the corresponding controller classes
+ * @package Steampilot\Util
+ */
+class Router
+{
+	/**
+	 * @var string The http request url
+	 */
 	protected $uri;
+
+	/**
+	 * @var string the name of the controller to be called
+	 */
 	protected $controller;
+
+	/**
+	 * @var string the name of the action to be called
+	 */
 	protected $action;
+
+	/**
+	 * @var array the get parameters that have to passed to the controller action function
+	 */
 	protected $params;
 
-	public function __construct() {
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
 		$this->uri = $_SERVER['REQUEST_URI'];
 	}
 
-	public function run() {
+	/**
+	 * Runs the router
+	 *
+	 * @uses self::parseUri()
+	 * @uses self::callControllerAction()
+	 */
+	public function run()
+	{
 		self::parseUri();
 		self::callControllerAction();
-
 	}
 
-	protected function parseUri() {
+	/**
+	 * Parses the uri
+	 *
+	 * It gets its data from the $_SERVER data. In order to determine in witch directory or in how many sub folders this
+	 * application is installed $scriptNameCount counts the directory separators till it finds itself. This then will be
+	 * fed back into the $parsedUri. With this method we can be certain the searched controller will be found.
+	 *
+	 * Also the request method POST or GET will be determined for convenient reasons
+	 */
+	protected function parseUri()
+	{
 		$scriptNameCount = count(explode('/', $_SERVER['SCRIPT_NAME'])) - 1;
 		$parsedUri = array_slice(explode('/', parse_url($this->uri)['path']), $scriptNameCount);
 		$controller = '\Controller\\' . ucfirst(strtolower($parsedUri[0])) . 'Controller';
@@ -48,14 +89,20 @@ class Router {
 				}
 			}
 		}
-		if(isset($_POST) || !empty($_POST)){
+		if (isset($_POST) || !empty($_POST)) {
 			$this->params['POST'] = $_POST;
 		} else {
 			$this->params['POST'] = null;
 		}
 	}
 
-	protected function callControllerAction() {
+	/**
+	 * Calls a controller action
+	 * Instantiates a object of an controller and calls upon its action.
+	 * It uses the concept of variable variables.
+	 */
+	protected function callControllerAction()
+	{
 		$controller = new $this->controller($this->params);
 		if (!method_exists($controller, $this->action) || (!is_callable(array($controller, $this->action)))) {
 			echo "Page not found";

@@ -15,7 +15,8 @@ use Steampilot\Util\Template;
  *
  * basic application class that holds the configuration and creates the database object
  */
-class App {
+class App
+{
 	/**
 	 * Contains the database object
 	 * @var \Steampilot\util\DbConnector
@@ -32,7 +33,8 @@ class App {
 	 *
 	 * @return \Steampilot\Util\DbConnector The Database object
 	 */
-	public static function getDb() {
+	public static function getDb()
+	{
 		if (isset(static::$db)) {
 			return static::$db;
 		} else {
@@ -48,8 +50,9 @@ class App {
 	 *
 	 * @return \Steampilot\Util\Template The template object
 	 */
-	public static function getTpl() {
-		if (isset(static::$tpl)){
+	public static function getTpl()
+	{
+		if (isset(static::$tpl)) {
 			return static::$tpl;
 		} else {
 			static::$tpl = new Template();

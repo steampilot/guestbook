@@ -16,7 +16,8 @@ use PDO;
  * PDO database connection handler class
  * @package Steampilot\Util
  */
-class DbConnector {
+class DbConnector
+{
 
 	/**
 	 * Contains the PDO database connection
@@ -39,7 +40,8 @@ class DbConnector {
 	 * @param string $password the database user password defaults to empty
 	 * @return void
 	 */
-	public function connect($hostname = '127.0.0.1', $database = 'test', $username = 'root', $password = '') {
+	public function connect($hostname = '127.0.0.1', $database = 'test', $username = 'root', $password = '')
+	{
 
 		// open the database connection
 		$this->dbConnection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
@@ -62,26 +64,37 @@ class DbConnector {
 	 *
 	 * @return void
 	 */
-	protected function disconnect() {
+	protected function disconnect()
+	{
 		unset ($this->dbConnection);
 	}
 
 	/**
-	 * Executes sql query and fetches the result as associative array
+	 * Performs an SQL query
 	 *
-	 * @param $sql String The Sql query to be executed
-	 * @return array The fetch result
+	 * The result will be fetched as associated array
+	 * @param $sql string The SQL string to be executed
+	 * @return array The fetched data result
+	 * @throws \Exception
 	 */
-	public function query($sql) {
+	public function query($sql)
+	{
 
 		$statement = $this->dbConnection->query($sql);
-		if(!$statement) {
+		if (!$statement) {
 			throw new \Exception('Invalid database query');
 		}
 		$result = $statement->fetchAll(PDO::FETCH_ASSOC);
 		return $result;
 	}
-	public function exec($sql) {
+
+	/**
+	 * Executes a SQL statement
+	 * @param $sql string The SQL string to be executed
+	 * @return bool|int Return the number of rows affected by this statement
+	 */
+	public function exec($sql)
+	{
 		if ($sql === '' || $sql === null) {
 			return false;
 		}
@@ -90,22 +103,37 @@ class DbConnector {
 		return $affectedRows;
 	}
 
-	public function quote($message) {
-
-		$escaped = $this->dbConnection->quote($message ,PDO::PARAM_STR);
+	/**
+	 * Quotes and escapes a SQL conform string
+	 *
+	 * @param $string string The SQL statement to be passed
+	 * @return string The Quoted and escaped save to use string.
+	 */
+	public function quote($string)
+	{
+		$escaped = $this->dbConnection->quote($string, PDO::PARAM_STR);
 		return $escaped;
 	}
-	public function prepare($sql, array $fields = array(), $escaping = true){
-		$replace = array();
-		foreach($fields as $key => $value) {
-			if ($escaping) {
 
-				$replace['{'.$key.'}'] = $this->quote($value);
+	/**
+	 * Prepares a SQL statement
+	 * @param $sql string The SQL statement to be processed
+	 * @param array $fields The data to be filled into the corresponding placeholders
+	 * @param bool $escaping
+	 * @return string
+	 */
+	public function prepare($sql, array $fields = array(), $escaping = true)
+	{
+		$replace = array();
+		foreach ($fields as $key => $value) {
+			if ($escaping) {
+				$replace['{' . $key . '}'] = $this->quote($value);
 			} else {
-				$replace['{'.$key.'}'] = $value;
+				$replace['{' . $key . '}'] = $value;
 			}
 		}
-		return strtr($sql,$replace);
+		//swaps the placeholders with the fields
+		return strtr($sql, $replace);
 	}
 
 }

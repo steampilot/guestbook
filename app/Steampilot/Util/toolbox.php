@@ -4,7 +4,12 @@
  * User: Jerome Roethlisberger
  * Date: 17.09.14
  * Time: 15:28
+ *
+ * This file contains useful tools that will be used in many other applications as well.
+ * Mainly it is designed for string manipulation and convenience
  */
+
+
 
 
 /**
@@ -15,7 +20,8 @@
  * @param $string string The String to be encoded
  * @return mixed|string The encoded string
  */
-function gh($string) {
+function gh($string)
+{
 
 	//skip empty string
 	if ($string === null || $string === '') {
@@ -43,7 +49,8 @@ function gh($string) {
  *
  * @param $string string The HTML encoded string to be printed
  */
-function ph($string) {
+function ph($string)
+{
 	echo gh($string);
 }
 
@@ -55,7 +62,8 @@ function ph($string) {
  * @param $string string The string to be converted and encoded
  * @return string string The encoded and converted string
  */
-function ghbr($string) {
+function ghbr($string)
+{
 	// skip empty string
 	if ($string === null || $string === '') {
 		$string = '';
@@ -75,9 +83,12 @@ function ghbr($string) {
 /**
  * Print HTML
  *
+ * Prints a HTML encoded string with new lines replaced by <pr>
+ *
  * @param $string string The HTML encoded string with <br> styled newlines
  */
-function phbr($string) {
+function phbr($string)
+{
 	echo ghbr($string);
 }
 
@@ -89,7 +100,8 @@ function phbr($string) {
  * @param $string string The URL string to be encoded
  * @return string string The encoded URL string
  */
-function gu($string) {
+function gu($string)
+{
 	return urldecode($string);
 }
 
@@ -100,7 +112,8 @@ function gu($string) {
  *
  * @param $string string The URL encoded string to be printed
  */
-function pu($string) {
+function pu($string)
+{
 	echo gu($string);
 }
 
@@ -112,7 +125,8 @@ function pu($string) {
  * @param $string string The attribute string to be encoded
  * @return string string The encoded attribute string
  */
-function ga($string) {
+function ga($string)
+{
 	return htmlspecialchars($string);
 }
 
@@ -123,7 +137,8 @@ function ga($string) {
  *
  * @param $string string The encoded attribute string to be printed
  */
-function pa($string) {
+function pa($string)
+{
 	echo ga($string);
 }
 
@@ -131,7 +146,8 @@ function pa($string) {
  * Get Attribute Value
  */
 
-function av(&$arr, $arr_keys, $default = '') {
+function av(&$arr, $arr_keys, $default = '')
+{
 	$return = $default;
 	if (!empty($arr)) {
 		foreach ($arr_keys as $index) {
@@ -147,33 +163,62 @@ function av(&$arr, $arr_keys, $default = '') {
 	}
 	return $return;
 }
-function interpolate($message, array $context = array()) {
+
+/**
+ * Interpolate a string
+ * @param $message string The string where the placeholder have to be filled
+ * @param array $context The context to fill the placeholders
+ * @return string $The new string with swapped placeholders
+ */
+function interpolate( $message, array $context = array())
+{
 	$replace = array();
-	foreach($context as $key => $value){
-		$replace['{'.$key.'}'] = $value;
+	foreach ($context as $key => $value) {
+		$replace['{' . $key . '}'] = $value;
 	}
-	return strtr($message,$replace);
+	// swap the placeholders with the string from the context
+	return strtr($message, $replace);
 }
-function quote($message = '', $delimiter = '\''){
-	return $delimiter.$message.$delimiter;
+
+/**
+ * Quote a string
+ *
+ * @param string $message The string to be quoted
+ * @param string $delimiter The quoting character to use. Defaults to a single '
+ * @return string The Quoted string
+ */
+function quote($message = '', $delimiter = '\'')
+{
+	return $delimiter . $message . $delimiter;
 }
+
 /**
  * Embraces a string with brackets
+ *
  * @param string $string The String to be embraced;
  * @value 'round', 'square', 'curly', 'angle'
  * @param string $brackets The type of brackets possible values are: round, square, curly, angle
  * @return string
  */
-function bracket($string = '', $brackets = "round"){
+function bracket($string = '', $brackets = "round")
+{
 	$bracketList = array(
-		'round'  => array ('(',')'),
-		'square' => array ('[',']'),
-		'curly'  => array ('{','}'),
-		'angle'  => array ('<','>')
+		'round' => array('(', ')'),
+		'square' => array('[', ']'),
+		'curly' => array('{', '}'),
+		'angle' => array('<', '>')
 	);
 	return $bracketList[$brackets][0] . $string . $bracketList[$brackets][1];
 }
-function generateRandomString($length = 10){
+
+/**
+ * Generates a random string
+ *
+ * @param int $length The length of the generated string
+ * @return string The generated string
+ */
+function generateRandomString($length = 10)
+{
 	$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	$randomString = '';
 	for ($i = 0; $i < $length; $i++) {
@@ -181,8 +226,19 @@ function generateRandomString($length = 10){
 	}
 	return $randomString;
 }
-function debug_log($message = ''){
-	file_put_contents('log.txt',$message,FILE_APPEND);
+
+function now(){
+	return date('Y-m-d h:m:s');
+}
+/**
+ * Writes a log message into the log.txt file
+ *
+ * @param string $message The message to be logged
+ */
+function debug_log($message = '')
+{
+
+	file_put_contents('log.txt', now().': '.$message.'\n', FILE_APPEND);
 }
 
 

@@ -7,7 +7,8 @@
  * @var $jumbo Array The ViewVars set by the controller
  */
 use \Config\Config;
-if(isset($jumbo)){
+
+if (isset($jumbo)) {
 	$title = $jumbo['title'];
 	$text = $jumbo['text'];
 	$btnUrl = $jumbo['btn-url'];
@@ -24,10 +25,12 @@ if(isset($jumbo)){
 	<h1>
 		<?php ph($title); ?>
 	</h1>
+
 	<p>
 		<?php ph($text); ?>
 	</p>
+
 	<p>
-		<a href="<?php pu($btnUrl);?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText);?> &raquo;</a>
+		<a href="<?php pu($btnUrl); ?>" class="btn btn-primary btn-lg" role="button"><?php ph($btnText); ?> &raquo;</a>
 	</p>
 </header>

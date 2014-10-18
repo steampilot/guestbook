@@ -37,11 +37,11 @@
 <body>
 <?php
 include __VIEW__ . '/ViewElement/nav.html.php';
-	if(isset($VIEW_FILES)){
-		foreach($VIEW_FILES as $viewFile) {
-			include $viewFile;
-		}
+if (isset($VIEW_FILES)) {
+	foreach ($VIEW_FILES as $viewFile) {
+		include $viewFile;
 	}
+}
 ?>
 <footer class="container">
 	<hr>

@@ -12,7 +12,8 @@ namespace Config;
  *
  * This file is intended as Template. To install the guest book you must rename Config.remote.php to Config.php
  */
-class Config {
+class Config
+{
 	/**
 	 * Holds the settings
 	 * @var array
@@ -22,7 +23,8 @@ class Config {
 	/**
 	 * Sets the local database configuration
 	 */
-	protected static function setLocalConfig() {
+	protected static function setLocalConfig()
+	{
 		static::$config['db.hostname'] = '127.0.0.1';
 		static::$config['db.database'] = 'spgb';
 		static::$config['db.username'] = 'root';
@@ -33,7 +35,8 @@ class Config {
 	/**
 	 * Sets the remote database configuration
 	 */
-	protected static function setRemoteConfig() {
+	protected static function setRemoteConfig()
+	{
 		static::$config['db.hostname'] = '';
 		static::$config['db.database'] = '';
 		static::$config['db.username'] = '';
@@ -47,21 +50,23 @@ class Config {
 	 * @param $key
 	 * @return mixed
 	 */
-	public static function get($key){
+	public static function get($key)
+	{
 		return static::$config[$key];
 	}
 
 	/**
 	 * Initialize the config based on location
 	 */
-	public  static function init(){
+	public static function init()
+	{
 		// define constants
-		define ('__BASE_URL__', $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].pathinfo($_SERVER['SCRIPT_NAME'],
-				PATHINFO_DIRNAME).'/');
-		define ('__BASE_DIR__', realpath(__DIR__.'/../..'));
-		define ('__VIEW__', __BASE_DIR__.'/app/View');
+		define ('__BASE_URL__', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . pathinfo($_SERVER['SCRIPT_NAME'],
+				PATHINFO_DIRNAME) . '/');
+		define ('__BASE_DIR__', realpath(__DIR__ . '/../..'));
+		define ('__VIEW__', __BASE_DIR__ . '/app/View');
 		static::$config['app.name'] = 'SPGB - Steampilot Guest Book';
-		static::$config['layout.file'] = __VIEW__.'/layout.html.php';
+		static::$config['layout.file'] = __VIEW__ . '/layout.html.php';
 		if (($_SERVER['HTTP_HOST'] == '127.0.0.1') || ($_SERVER['HTTP_HOST'] == 'localhost')) {
 			static::setLocalConfig();
 		} else {

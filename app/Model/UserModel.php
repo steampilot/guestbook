@@ -7,10 +7,21 @@
  */
 
 namespace Model;
-
-class UserModel extends Model {
-
-	public function __construct() {
+/**
+ * Class UserModel
+ *
+ * Handling the database SQL Requests specific for the te data regarding the users of the guest book.
+ * As the Strict convention between controller and model, the model is responsible for
+ * acquiring data from different tables in order to satisfy the controllers needs.
+ * @package Model
+ */
+class UserModel extends Model
+{
+	/**
+	 * Constructor
+ 	 */
+	public function __construct()
+	{
 		parent::__construct();
 	}
 
@@ -19,11 +30,12 @@ class UserModel extends Model {
 	 * @param $id
 	 * @return mixed
 	 */
-	public function getOne($id) {
+	public function getOne($id)
+	{
 		$db = $this->getDb();
 		$sql = 'SELECT id, name, email, role , created, modified FROM user WHERE id = {id};';
 		$fields = array(
-			'id'=> $id
+			'id' => $id
 		);
 		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
@@ -36,10 +48,11 @@ class UserModel extends Model {
 	}
 
 	/**
-	 * gets all records of a table
+	 * Gets all records of a table
 	 * @return mixed
 	 */
-	public function getAll() {
+	public function getAll()
+	{
 		$db = $this->getDb();
 		$sql =
 		$sql = 'SELECT
@@ -49,28 +62,53 @@ class UserModel extends Model {
 					role
 				FROM user;';
 		$result = $db->query($sql);
-		foreach ($result as $row){
+		/**
+		 * Get the role name by calling the lookup function and push it back into the result
+		 */
+		$newResult = array();
+		foreach ($result as $row) {
 			$row['roleName'] = $this->getRoleName($row['role']);
 			$newResult[] = $row;
 		}
-
 		return $newResult;
 	}
-	protected function getRoleName($role){
-		switch ($role){
+
+	/**
+	 * Gets the name of the role of a user
+	 * @param $role
+	 * @return string
+	 */
+	protected function getRoleName($role)
+	{
+		$name = '';
+		switch ($role) {
 			case 1:
-				return 'Administrator';
+				$name = 'Administrator';
+				break;
 			case 2:
-				return 'Author';
+				$name = 'Author';
+				break;
 			case 3:
-				return 'Guest';
+				$name = 'Guest';
+				break;
 		}
+		return $name;
 	}
-	public function getOneByEmail($email){
+
+	/**
+	 * Get one user by its email
+	 *
+	 * This is particularly helpful after creating a new user and its id is not known at this point because of the
+	 * auto incrementation by the database
+	 * @param $email
+	 * @return null
+	 */
+	public function getOneByEmail($email)
+	{
 		$db = $this->getDb();
 		$sql = 'SELECT id, name, email, password FROM user WHERE email = {email};';
 		$fields = array(
-			'email'=> $email
+			'email' => $email
 		);
 		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
@@ -81,11 +119,18 @@ class UserModel extends Model {
 		}
 	}
 
-	public function create($fields){
+	/**
+	 * Inserts a new user into the database
+	 *
+	 * It hashes the password by using the standard PHP password hash function. Important Note: Make sure the collumn
+	 * has at least varchar(255) allocated
+	 * @param array $fields
+	 * @return bool|int|mixed
+	 */
+	public function create($fields)
+	{
 		$db = $this->getDb();
-
-
-		$hash = password_hash($fields['password'],PASSWORD_DEFAULT);
+		$hash = password_hash($fields['password'], PASSWORD_DEFAULT);
 		$fields['password'] = $hash;
 		$sql = 'INSERT INTO user (name, email, role, password, created)
 				VALUES ({name}, {email}, {role}, {password}, {created});';
@@ -93,26 +138,40 @@ class UserModel extends Model {
 		return $db->exec($sql);
 	}
 
-	public function update($fields) {
+	/**
+	 * Updates a users password
+	 *
+	 * @param array $fields
+	 * @return bool|int|mixed
+	 */
+	public function update($fields)
+	{
 		$db = $this->getDb();
-				$sql = 'UPDATE user SET
+		$sql = 'UPDATE user SET
 				password = {password}
 				modified = {modified},
 				WHERE id = {id};';
-		$hash = password_hash($fields['password'],PASSWORD_DEFAULT);
+		$hash = password_hash($fields['password'], PASSWORD_DEFAULT);
 		$fields['password'] = $hash;
-		$sql = $db->prepare($sql,$fields);
+		$sql = $db->prepare($sql, $fields);
 		return $db->exec($sql);
 	}
 
-	public function delete($id) {
+	/**
+	 * Deletes a guest book user. Important notice: Because of Foreignkey behavior 'on delete cascade'
+	 * within the database all its posts wil be deleted as well.
+	 * @param int $id
+	 * @return bool|int|mixed
+	 */
+	public function delete($id)
+	{
 		//
 		$db = $this->getDb();
 		$sql = 'DELETE FROM user WHERE id = {id};';
 		$fields = array(
 			'id' => $id
 		);
-		$sql = $db->prepare($sql,$fields);
+		$sql = $db->prepare($sql, $fields);
 		return $db->exec($sql);
 	}
 
@@ -123,19 +182,29 @@ class UserModel extends Model {
 	 * @param $password
 	 * @return bool Returns true if the password equals the hash
 	 */
-	public function checkPassword($id, $password){
+	public function checkPassword($id, $password)
+	{
 		$db = $this->getDb();
 		$sql = 'SELECT password FROM user WHERE id = {id};';
 		$fields = array(
 			'id' => $id
-		);
+	);
 		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
-		return password_verify($password,$result[0]['password']);
+		return password_verify($password, $result[0]['password']);
 	}
-	public function setPassword($id,$password){
+
+	/**
+	 * Sets a password for a guest book user.
+	 *
+	 * @param $id
+	 * @param $password
+	 * @return bool|int
+	 */
+	public function setPassword($id, $password)
+	{
 		$db = $this->getDb();
-		$password = password_hash($password,PASSWORD_DEFAULT);
+		$password = password_hash($password, PASSWORD_DEFAULT);
 		$sql = $sql = 'UPDATE user SET
 				password = {password}
 				modified = {modified}
@@ -144,10 +213,12 @@ class UserModel extends Model {
 			'id' => $id,
 			'password' => $password
 		);
-		$sql = $db->prepare($sql,$fields);
+		$sql = $db->prepare($sql, $fields);
 		return $db->exec($sql);
 	}
-	public function validate($data){
+
+	public function validate($data)
+	{
 	}
 
 }

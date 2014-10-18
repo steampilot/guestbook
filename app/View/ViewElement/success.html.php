@@ -5,7 +5,7 @@
  * Date: 24.09.14
  * Time: 13:55
  */
-if(isset($success)){
+if (isset($success)) {
 	$title = $success['title'];
 	$text = $success['text'];
 } else {
@@ -19,6 +19,7 @@ if(isset($success)){
 		<div class="panel-body">
 			<div class="alert alert-success" role="alert">
 				<h3><?php ph($title); ?></h3>
+
 				<p><?php ph($text); ?></p>
 			</div>
 		</div>

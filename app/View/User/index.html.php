@@ -22,11 +22,11 @@
 				Action
 			</th>
 		</tr>
-		<?php foreach($users as $user) {
-			$viewUrl = __BASE_URL__.'User/view?id='.$user['id'];
-			$editUrl = __BASE_URL__.'User/edit?id='.$user['id'];
-			$deleteUrl = __BASE_URL__.'User/delete?id='.$user['id'];
-			$setPasswordUrl = __BASE_URL__.'User/view?id='.$user['id'];
+		<?php foreach ($users as $user) {
+			$viewUrl = __BASE_URL__ . 'User/view?id=' . $user['id'];
+			$editUrl = __BASE_URL__ . 'User/edit?id=' . $user['id'];
+			$deleteUrl = __BASE_URL__ . 'User/delete?id=' . $user['id'];
+			$setPasswordUrl = __BASE_URL__ . 'User/view?id=' . $user['id'];
 			?>
 			<tr>
 				<td>

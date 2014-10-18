@@ -5,7 +5,7 @@
  * Date: 24.09.14
  * Time: 13:55
  */
-if(isset($error)){
+if (isset($error)) {
 	$title = $error['title'];
 	$text = $error['text'];
 } else {
@@ -19,6 +19,7 @@ if(isset($error)){
 		<div class="panel-body">
 			<div class="alert alert-danger" role="alert">
 				<h3><?php ph($title); ?></h3>
+
 				<p><?php ph($text); ?></p>
 			</div>
 		</div>

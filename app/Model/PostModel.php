@@ -7,10 +7,21 @@
  */
 
 namespace Model;
-
-class PostModel extends Model {
-
-	public function __construct() {
+/**
+ * Class PostModel
+ *
+ * Handling the database SQL Requests specific for the te data regarding the guest book posts.
+ * As the Strict convention between controller and model, the model is responsible for
+ * acquiring data from different tables in order to satisfy the controllers needs.
+ * @package Model
+ */
+class PostModel extends Model
+{
+	/**
+	 * The Constructor
+ 	 */
+	public function __construct()
+	{
 		parent::__construct();
 	}
 
@@ -19,7 +30,8 @@ class PostModel extends Model {
 	 * @param $id
 	 * @return mixed
 	 */
-	public function getOne($id) {
+	public function getOne($id)
+	{
 		$db = $this->getDb();
 		$sql = 'SELECT
 					p.id,
@@ -35,9 +47,8 @@ class PostModel extends Model {
 				LEFT JOIN user AS u ON p.author_id = u.id
 				WHERE p.id = {id};';
 		$fields = array(
-			'id'=> $id
-		)
-		;
+			'id' => $id
+		);
 		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
 		if (isset($result[0])) {
@@ -51,7 +62,8 @@ class PostModel extends Model {
 	 * gets all records of a table
 	 * @return mixed
 	 */
-	public function getAll() {
+	public function getAll()
+	{
 		$db = $this->getDb();
 		$sql =
 		$sql = 'SELECT
@@ -68,9 +80,9 @@ class PostModel extends Model {
 				LEFT JOIN user AS u ON p.author_id = u.id
 				ORDER BY p.id DESC;';
 		$result = $db->query($sql);
-		foreach ($result as $id => $post){
-			if(strlen($post['message']) >40 ){
-				$result[$id]['message'] = substr($post['message'],0,40).' ... Read more';
+		foreach ($result as $id => $post) {
+			if (strlen($post['message']) > 40) {
+				$result[$id]['message'] = substr($post['message'], 0, 40) . ' ... Read more';
 			}
 
 		}
@@ -82,7 +94,8 @@ class PostModel extends Model {
 	 * @param int $id The author id
 	 * @return null|array the author
 	 */
-	public function getAuthor($id){
+	public function getAuthor($id)
+	{
 		$db = $this->getDb();
 		$fields = array(
 			'id' => $id
@@ -92,13 +105,21 @@ class PostModel extends Model {
 				WHERE id = {id};';
 		$sql = $db->prepare($sql, $fields, false);
 		$result = $db->query($sql);
-		if(isset($result[0])){
-			return$result[0];
+		if (isset($result[0])) {
+			return $result[0];
 		} else {
 			return null;
 		}
 	}
-	public function create($fields){
+
+	/**
+	 * Inserts a new guest book post
+	 *
+	 * @param array $fields
+	 * @return bool|int|mixed
+	 */
+	public function create($fields)
+	{
 		$db = $this->getDb();
 		$sql = 'INSERT INTO post (author_id, subject, message, published, created)
 				VALUES ({author_id}, {subject}, {message}, {published}, {created});';
@@ -106,28 +127,42 @@ class PostModel extends Model {
 		return $db->exec($sql);
 	}
 
-	public function update($fields) {
+	/**
+	 * Updates a guest book post
+	 * @param array $fields
+	 * @return bool|int|mixed
+	 */
+	public function update($fields)
+	{
 		$db = $this->getDb();
-				$sql = 'UPDATE post SET
+		$sql = 'UPDATE post SET
 				subject = {subject},
 				message = {message},
 				published = {published},
 				modified = {modified}
 				WHERE id = {id};';
-		$sql = $db->prepare($sql,$fields);
+		$sql = $db->prepare($sql, $fields);
 		return $db->exec($sql);
 	}
 
-	public function delete($id) {
+	/**
+	 * Deletes a guest book post
+	 * @param int $id
+	 * @return bool|int|mixed
+	 */
+	public function delete($id)
+	{
 		//
 		$db = $this->getDb();
 		$sql = 'DELETE FROM post WHERE id = {id};';
 		$fields = array(
 			'id' => $id
 		);
-		$sql = $db->prepare($sql,$fields);
+		$sql = $db->prepare($sql, $fields);
 		return $db->exec($sql);
 	}
-	public function validate($data){
+
+	public function validate($data)
+	{
 	}
 }

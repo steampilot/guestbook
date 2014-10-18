@@ -8,20 +8,37 @@
 
 namespace Controller;
 
-class SessionController extends Controller{
+/**
+ * Class SessionController
+ *
+ * Controls the session factory
+ * @package Controller
+ */
+class SessionController extends Controller
+{
 	/**
-	 * @var \Model\UserModel $model The Model
+	 * @var \Model\UserModel $model Just so that the IDE knows what functions are corresponding wit that model
 	 */
 	protected $model = '';
-	public function __construct($params) {
-		$modelName = array('User','Users');
-		parent::__construct($params,$modelName);
+
+	/**
+	 * Constructor
+	 * @param Array|null $params
+	 */
+	public function __construct($params)
+	{
+		$modelName = array('User', 'Users');
+		parent::__construct($params, $modelName);
 	}
 
-	public function login(){
-		if($this->method === 'POST' && isset($_POST['login_email'])) {
+	/**
+	 * Performs the login
+	 */
+	public function login()
+	{
+		if ($this->method === 'POST' && isset($_POST['login_email'])) {
 			$data = $this->model->getOneByEmail($_POST['login_email']);
-			if (empty($data)){
+			if (empty($data)) {
 				$_SESSION['sessionUserId'] = null;
 				$_SESSION['active'] = false;
 				$this->setAlert('error', array(
@@ -30,7 +47,7 @@ class SessionController extends Controller{
 				));
 				$this->redirect('Post', 'index');
 			} else {
-				if(password_verify($_POST['login_password'], $data['password'])){
+				if (password_verify($_POST['login_password'], $data['password'])) {
 					$_SESSION['sessionUserId'] = $data['id'];
 					$_SESSION['active'] = true;
 					$this->setAlert('success', array(
@@ -38,7 +55,7 @@ class SessionController extends Controller{
 						'text' => 'You did remember your email and your password after all!'
 					));
 					$this->redirect('Post', 'index');
-				} else{
+				} else {
 					$this->setAlert('error', array(
 						'title' => 'ACCESS DENIED',
 						'text' => 'Wrong Password! No panic, just keep calm and think. Its somewhere lost in your
@@ -50,23 +67,20 @@ class SessionController extends Controller{
 				}
 			}
 		}
-
-
 	}
-	public function logout(){
+
+	/**
+	 * Performs the logout
+	 */
+	public function logout() {
 		$this->destroySession();
 		$this->startSession();
-		$this->setAlert('success' ,array(
+		$this->setAlert('success', array(
 			'title' => 'LOGGED OUT',
 			'text' => 'Despite of all the fun you had posting strange and crazy stuff on this message board. You
 			decided that it is enough for today. And You know what? We think that is a good idea. That\'s why we say
 			goodbye and as always: Thank you for posting!'
 		));
-
 		$this->redirect('Post', 'Index');
 	}
-	protected function comparePassword($hash,$password){
-
-	}
-
-} 
+}
