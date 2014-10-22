@@ -81,8 +81,8 @@ class PostModel extends Model
 				ORDER BY p.id DESC;';
 		$result = $db->query($sql);
 		foreach ($result as $id => $post) {
-			if (strlen($post['message']) > 40) {
-				$result[$id]['message'] = substr($post['message'], 0, 40) . ' ... Read more';
+			if (strlen($post['message']) > 60) {
+				$result[$id]['message'] = substr($post['message'], 0, 60) . '\n ... Read more';
 			}
 
 		}

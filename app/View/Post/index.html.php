@@ -13,13 +13,18 @@
 		$subject = $post['subject'];
 		$message = $post['message'];
 		$author_name = $post['author_name'];
+		$created = $post['created'];
+		$created = substr($post['created'], 0, 10);
 		$editUrl = __BASE_URL__ . 'Post/edit?id=' . $post['id'];
 		$deleteUrl = __BASE_URL__ . 'Post/delete?id=' . $post['id'];
 		?>
 		<article class="article col-md-3">
 			<header>
 				<small>
-					<?php ph($author_name); ?>
+					<strong>
+						<?php ph($author_name); ?>
+					</strong>
+					Created: <?php ph($created); ?>
 				</small>
 				<h3><?php ph($subject); ?></h3>
 			</header>
