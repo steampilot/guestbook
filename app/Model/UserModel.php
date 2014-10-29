@@ -130,7 +130,7 @@ class UserModel extends Model
 	public function create($fields)
 	{
 		$db = $this->getDb();
-		$hash = password_hash($fields['password'], PASSWORD_DEFAULT);
+		$hash = create_password_hash($fields['password'], PASSWORD_DEFAULT);
 		$fields['password'] = $hash;
 		$sql = 'INSERT INTO user (name, email, role, password, created)
 				VALUES ({name}, {email}, {role}, {password}, {created});';
@@ -151,7 +151,7 @@ class UserModel extends Model
 				password = {password}
 				modified = {modified},
 				WHERE id = {id};';
-		$hash = password_hash($fields['password'], PASSWORD_DEFAULT);
+		$hash = create_password_hash($fields['password'], PASSWORD_DEFAULT);
 		$fields['password'] = $hash;
 		$sql = $db->prepare($sql, $fields);
 		return $db->exec($sql);
@@ -191,7 +191,7 @@ class UserModel extends Model
 	);
 		$sql = $db->prepare($sql, $fields);
 		$result = $db->query($sql);
-		return password_verify($password, $result[0]['password']);
+		return verify_password_hash($password, $result[0]['password']);
 	}
 
 	/**
@@ -204,7 +204,7 @@ class UserModel extends Model
 	public function setPassword($id, $password)
 	{
 		$db = $this->getDb();
-		$password = password_hash($password, PASSWORD_DEFAULT);
+		$password = $thist->password_hash($password, PASSWORD_DEFAULT);
 		$sql = $sql = 'UPDATE user SET
 				password = {password}
 				modified = {modified}

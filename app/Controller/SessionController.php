@@ -47,7 +47,7 @@ class SessionController extends Controller
 				));
 				$this->redirect('Post', 'index');
 			} else {
-				if (password_verify($_POST['login_password'], $data['password'])) {
+				if (verify_password_hash($_POST['login_password'], $data['password'])) {
 					$_SESSION['sessionUserId'] = $data['id'];
 					$_SESSION['active'] = true;
 					$this->setAlert('success', array(
